@@ -1,0 +1,714 @@
+Windows PowerShell
+Copyright (C) 2015 Microsoft Corporation. All rights reserved.
+
+PS C:\WINDOWS\system32> get-item wsman:\localhost\client\trustedhosts
+
+Start WinRM Service
+WinRM service is not started currently. Running this command will
+ start the WinRM service.
+
+Do you want to continue?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): y
+get-item : Cannot find path 'WSMan:\localhost\Client\TrustedHosts' because it does not exist.
+At line:1 char:1
++ get-item wsman:\localhost\client\trustedhosts
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (WSMan:\localhost\Client\TrustedHosts:String) [Get-Item], ItemNotFoundEx
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetItemCommand
+
+PS C:\WINDOWS\system32> set-item wsman:\localhost\Client\TrustedHosts -value pcplaymobil
+
+Start WinRM Service
+WinRM service is not started currently. Running this command will
+ start the WinRM service.
+
+Do you want to continue?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+
+WinRM Security Configuration.
+This command modifies the TrustedHosts list for the WinRM client.
+ The computers in the TrustedHosts list might not be
+authenticated. The client might send credential information to
+these computers. Are you sure that you want to modify this list?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+set-item : The client cannot connect to the destination specified in the request. Verify that the service on the
+destination is running and is accepting requests. Consult the logs and documentation for the WS-Management service
+running on the destination, most commonly IIS or WinRM. If the destination is the WinRM service, run the following
+command on the destination to analyze and configure the WinRM service: "winrm quickconfig".
+At line:1 char:1
++ set-item wsman:\localhost\Client\TrustedHosts -value pcplaymobil
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Set-Item], InvalidOperationException
+    + FullyQualifiedErrorId : System.InvalidOperationException,Microsoft.PowerShell.Commands.SetItemCommand
+
+PS C:\WINDOWS\system32> winrm quickconfig
+WinRM is not set up to receive requests on this machine.
+The following changes must be made:
+
+Start the WinRM service.
+Set the WinRM service type to delayed auto start.
+
+Make these changes [y/n]? Y
+
+WinRM has been updated to receive requests.
+
+WinRM service type changed successfully.
+WinRM service started.
+WinRM is not set up to allow remote access to this machine for management.
+The following changes must be made:
+
+Create a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+Enable the WinRM firewall exception.
+Configure LocalAccountTokenFilterPolicy to grant administrative rights remotely to local users.
+
+Make these changes [y/n]? N
+PS C:\WINDOWS\system32> winrm
+Windows Remote Management Command Line Tool
+
+Windows Remote Management (WinRM) is the Microsoft implementation of
+the WS-Management protocol which provides a secure way to communicate
+with local and remote computers using web services.
+
+Usage:
+  winrm OPERATION RESOURCE_URI [-SWITCH:VALUE [-SWITCH:VALUE] ...]
+        [@{KEY=VALUE[;KEY=VALUE]...}]
+
+For help on a specific operation:
+  winrm g[et] -?        Retrieving management information.
+  winrm s[et] -?        Modifying management information.
+  winrm c[reate] -?     Creating new instances of management resources.
+  winrm d[elete] -?     Remove an instance of a management resource.
+  winrm e[numerate] -?  List all instances of a management resource.
+  winrm i[nvoke] -?     Executes a method on a management resource.
+  winrm id[entify] -?   Determines if a WS-Management implementation is
+                        running on the remote machine.
+  winrm quickconfig -?  Configures this machine to accept WS-Management
+                        requests from other machines.
+  winrm configSDDL -?   Modify an existing security descriptor for a URI.
+  winrm helpmsg -?      Displays error message for the error code.
+
+For help on related topics:
+  winrm help uris       How to construct resource URIs.
+  winrm help aliases    Abbreviations for URIs.
+  winrm help config     Configuring WinRM client and service settings.
+  winrm help certmapping Configuring client certificate access.
+  winrm help remoting   How to access remote machines.
+  winrm help auth       Providing credentials for remote access.
+  winrm help input      Providing input to create, set, and invoke.
+  winrm help switches   Other switches such as formatting, options, etc.
+  winrm help proxy      Providing proxy information.
+PS C:\WINDOWS\system32> set-item wsman:\localhost\Client\TrustedHosts -value pcplaymobil
+
+Start WinRM Service
+WinRM service is not started currently. Running this command will start the WinRM service.
+
+Do you want to continue?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+
+WinRM Security Configuration.
+This command modifies the TrustedHosts list for the WinRM client. The computers in the TrustedHosts list
+might not be authenticated. The client might send credential information to these computers. Are you sure
+ that you want to modify this list?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+set-item : The client cannot connect to the destination specified in the request. Verify that the service on the destination
+is running and is accepting requests. Consult the logs and documentation for the WS-Management service running on the
+destination, most commonly IIS or WinRM. If the destination is the WinRM service, run the following command on the
+destination to analyze and configure the WinRM service: "winrm quickconfig".
+At line:1 char:1
++ set-item wsman:\localhost\Client\TrustedHosts -value pcplaymobil
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Set-Item], InvalidOperationException
+    + FullyQualifiedErrorId : System.InvalidOperationException,Microsoft.PowerShell.Commands.SetItemCommand
+
+PS C:\WINDOWS\system32> winrm quickconfig
+WinRM is not set up to receive requests on this machine.
+The following changes must be made:
+
+Start the WinRM service.
+Set the WinRM service type to delayed auto start.
+
+Make these changes [y/n]? Y
+
+WinRM has been updated to receive requests.
+
+WinRM service type changed successfully.
+WinRM service started.
+WinRM is not set up to allow remote access to this machine for management.
+The following changes must be made:
+
+Create a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+Enable the WinRM firewall exception.
+Configure LocalAccountTokenFilterPolicy to grant administrative rights remotely to local users.
+
+Make these changes [y/n]? Y
+
+WinRM has been updated for remote management.
+
+Created a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+WinRM firewall exception enabled.
+Configured LocalAccountTokenFilterPolicy to grant administrative rights remotely to local users.
+PS C:\WINDOWS\system32> set-item wsman:\localhost\Client\TrustedHosts -value pcplaymobil
+
+WinRM Security Configuration.
+This command modifies the TrustedHosts list for the WinRM client. The computers in the TrustedHosts list
+might not be authenticated. The client might send credential information to these computers. Are you sure
+ that you want to modify this list?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+PS C:\WINDOWS\system32> Enter-PsSession -computername pcplaymobil -credential pcplaymobil\administrator
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents> mkdir webapptest
+
+
+    Directory: C:\Data\Users\administrator\Documents
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       25/11/2018      3:05                webapptest
+
+
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents> cd webapptest
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents\webapptest> .\Gastia.IoT.Pocs.Web.Aspnetcore2webapp.exe
+Program 'Gastia.IoT.Pocs.Web.Aspnetcore2webapp.exe' failed to run: This function is not supported on this system.
+    + CategoryInfo          : ResourceUnavailable: (:) [], ApplicationFailedException
+    + FullyQualifiedErrorId : NativeCommandFailed
+
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents\webapptest> .\Gastia.IoT.Pocs.Web.Aspnetcore2webapp.exe
+Hosting environment: Production
+Content root path: C:\Data\Users\administrator\Documents\webapptest
+Now listening on: http://[::]:8082
+Application started. Press Ctrl+C to shut down.
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+Microsoft.AspNetCore.Mvc.Razor.Compilation.CompilationFailedException: One or more compilation failures occurred:
+(0,0): Error RZ3007: Targeted tag name cannot be null or whitespace.
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.CompileAndEmit(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.OnCacheMiss(String normalizedPath)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRazorPageFactoryProvider.CreateFactory(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.CreateCacheResult(HashSet`1 expirationTokens, String relativePath, Boolea
+n isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.OnCacheMiss(ViewLocationExpanderContext expanderContext, ViewLocationCach
+eKey cacheKey)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.LocatePageFromViewLocations(ActionContext actionContext, String pageName,
+ Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.FindView(ActionContext context, String viewName, Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName, Boolean isMain
+Page)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.FindView(ActionContext actionContext, ViewResult viewResult)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& st
+ate, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+Microsoft.AspNetCore.Mvc.Razor.Compilation.CompilationFailedException: One or more compilation failures occurred:
+(0,0): Error RZ3007: Targeted tag name cannot be null or whitespace.
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.CompileAndEmit(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.OnCacheMiss(String normalizedPath)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRazorPageFactoryProvider.CreateFactory(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.CreateCacheResult(HashSet`1 expirationTokens, String relativePath, Boolea
+n isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.OnCacheMiss(ViewLocationExpanderContext expanderContext, ViewLocationCach
+eKey cacheKey)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.LocatePageFromViewLocations(ActionContext actionContext, String pageName,
+ Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.FindView(ActionContext context, String viewName, Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName, Boolean isMain
+Page)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.FindView(ActionContext actionContext, ViewResult viewResult)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& st
+ate, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+Microsoft.AspNetCore.Mvc.Razor.Compilation.CompilationFailedException: One or more compilation failures occurred:
+(0,0): Error RZ3007: Targeted tag name cannot be null or whitespace.
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.CompileAndEmit(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.OnCacheMiss(String normalizedPath)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRazorPageFactoryProvider.CreateFactory(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.CreateCacheResult(HashSet`1 expirationTokens, String relativePath, Boolea
+n isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.OnCacheMiss(ViewLocationExpanderContext expanderContext, ViewLocationCach
+eKey cacheKey)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.LocatePageFromViewLocations(ActionContext actionContext, String pageName,
+ Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.FindView(ActionContext context, String viewName, Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName, Boolean isMain
+Page)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.FindView(ActionContext actionContext, ViewResult viewResult)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& st
+ate, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+Microsoft.AspNetCore.Mvc.Razor.Compilation.CompilationFailedException: One or more compilation failures occurred:
+(0,0): Error RZ3007: Targeted tag name cannot be null or whitespace.
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.CompileAndEmit(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorViewCompiler.OnCacheMiss(String normalizedPath)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRazorPageFactoryProvider.CreateFactory(String relativePath)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.CreateCacheResult(HashSet`1 expirationTokens, String relativePath, Boolea
+n isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.OnCacheMiss(ViewLocationExpanderContext expanderContext, ViewLocationCach
+eKey cacheKey)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.LocatePageFromViewLocations(ActionContext actionContext, String pageName,
+ Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.FindView(ActionContext context, String viewName, Boolean isMainPage)
+   at Microsoft.AspNetCore.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName, Boolean isMain
+Page)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.FindView(ActionContext actionContext, ViewResult viewResult)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& st
+ate, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents\webapptest> asdfexit
+The term 'asdfexit' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+    + CategoryInfo          : ObjectNotFound: (asdfexit:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents\webapptest> cd ..
+[pcplaymobil]: PS C:\Data\Users\administrator\Documents> cd ..
+[pcplaymobil]: PS C:\Data\Users\administrator> cd .\webapps\
+[pcplaymobil]: PS C:\Data\Users\administrator\webapps> dir
+
+
+    Directory: C:\Data\Users\administrator\webapps
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       25/11/2018      3:25                Gastia.IoT.Pocs.Web.Aspnetcore2webapp
+
+
+[pcplaymobil]: PS C:\Data\Users\administrator\webapps> cd .\Gastia.IoT.Pocs.Web.Aspnetcore2webapp\
+[pcplaymobil]: PS C:\Data\Users\administrator\webapps\Gastia.IoT.Pocs.Web.Aspnetcore2webapp> dir
+
+
+    Directory: C:\Data\Users\administrator\webapps\Gastia.IoT.Pocs.Web.Aspnetcore2webapp
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       25/11/2018      3:24                wwwroot
+-a----       19/10/2018     10:12          21040 api-ms-win-core-console-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-datetime-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-debug-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-errorhandling-l1-1-0.dll
+-a----       19/10/2018     10:12          25136 api-ms-win-core-file-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-file-l1-2-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-file-l2-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-handle-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-heap-l1-1-0.dll
+-a----       19/10/2018     10:12          21032 api-ms-win-core-interlocked-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-libraryloader-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-localization-l1-2-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-memory-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-namedpipe-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-processenvironment-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-processthreads-l1-1-0.dll
+-a----       19/10/2018     10:12          21032 api-ms-win-core-processthreads-l1-1-1.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-profile-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-rtlsupport-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-string-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-synch-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-synch-l1-2-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-sysinfo-l1-1-0.dll
+-a----       19/10/2018     10:12          21032 api-ms-win-core-timezone-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-core-util-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-conio-l1-1-0.dll
+-a----       19/10/2018     10:12          25136 api-ms-win-crt-convert-l1-1-0.dll
+-a----       19/10/2018     10:12          21032 api-ms-win-crt-environment-l1-1-0.dll
+-a----       19/10/2018     10:12          21032 api-ms-win-crt-filesystem-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-heap-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-locale-l1-1-0.dll
+-a----       19/10/2018     10:12          29232 api-ms-win-crt-math-l1-1-0.dll
+-a----       19/10/2018     10:12          29232 api-ms-win-crt-multibyte-l1-1-0.dll
+-a----       19/10/2018     10:12          70192 api-ms-win-crt-private-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-process-l1-1-0.dll
+-a----       19/10/2018     10:12          25136 api-ms-win-crt-runtime-l1-1-0.dll
+-a----       19/10/2018     10:12          25128 api-ms-win-crt-stdio-l1-1-0.dll
+-a----       19/10/2018     10:12          25136 api-ms-win-crt-string-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-time-l1-1-0.dll
+-a----       19/10/2018     10:12          21040 api-ms-win-crt-utility-l1-1-0.dll
+-a----       25/11/2018      2:26            146 appsettings.Development.json
+-a----       25/11/2018      2:26            105 appsettings.json
+-a----       19/10/2018     10:12         677632 clrcompression.dll
+-a----       19/10/2018     10:12         239664 clretwrc.dll
+-a----       19/10/2018     10:12         833072 clrjit.dll
+-a----       19/10/2018     10:12        4335152 coreclr.dll
+-a----       19/10/2018     10:12         128560 dbgshim.dll
+-a----       25/11/2018      3:22         384049 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.deps.json
+-a----       25/11/2018      3:22          10240 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.dll
+-a----       19/10/2018     10:12          92672 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.exe
+-a----       25/11/2018      3:22           2028 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.pdb
+-a----       25/11/2018      3:22             98 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.runtimeconfig.json
+-a----       25/11/2018      3:22          86528 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.Views.dll
+-a----       25/11/2018      3:22           6604 Gastia.IoT.Pocs.Web.Aspnetcore2webapp.Views.pdb
+-a----       19/10/2018     10:12         267128 hostfxr.dll
+-a----       19/10/2018     10:12         408440 hostpolicy.dll
+-a----       22/11/2018     23:53          54264 Microsoft.AspNetCore.Antiforgery.dll
+-a----       22/11/2018     23:53          29176 Microsoft.AspNetCore.Authentication.Abstractions.dll
+-a----       26/07/2018     18:17          49536 Microsoft.AspNetCore.Authentication.Cookies.dll
+-a----       22/11/2018     23:53          37880 Microsoft.AspNetCore.Authentication.Core.dll
+-a----       26/07/2018     18:17          63872 Microsoft.AspNetCore.Authentication.dll
+-a----       26/07/2018     18:17          28032 Microsoft.AspNetCore.Authentication.Facebook.dll
+-a----       26/07/2018     18:17          29568 Microsoft.AspNetCore.Authentication.Google.dll
+-a----       26/07/2018     18:17          38272 Microsoft.AspNetCore.Authentication.JwtBearer.dll
+-a----       26/07/2018     18:17          26496 Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll
+-a----       26/07/2018     18:17          43904 Microsoft.AspNetCore.Authentication.OAuth.dll
+-a----       26/07/2018     18:17          91008 Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+-a----       26/07/2018     18:17          46464 Microsoft.AspNetCore.Authentication.Twitter.dll
+-a----       26/07/2018     18:17          46464 Microsoft.AspNetCore.Authentication.WsFederation.dll
+-a----       26/07/2018     18:17          41344 Microsoft.AspNetCore.Authorization.dll
+-a----       26/07/2018     18:17          21888 Microsoft.AspNetCore.Authorization.Policy.dll
+-a----       26/07/2018     18:17          34176 Microsoft.AspNetCore.Connections.Abstractions.dll
+-a----       26/07/2018     18:17          27520 Microsoft.AspNetCore.CookiePolicy.dll
+-a----       22/11/2018     23:48          36336 Microsoft.AspNetCore.Cors.dll
+-a----       22/11/2018     23:48          40952 Microsoft.AspNetCore.Cryptography.Internal.dll
+-a----       22/11/2018     23:48          21496 Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+-a----       22/11/2018     23:48          23544 Microsoft.AspNetCore.DataProtection.Abstractions.dll
+-a----       22/11/2018     23:48         153080 Microsoft.AspNetCore.DataProtection.dll
+-a----       22/11/2018     23:49          23032 Microsoft.AspNetCore.DataProtection.Extensions.dll
+-a----       22/11/2018     23:49          16912 Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+-a----       22/11/2018     23:49         240632 Microsoft.AspNetCore.Diagnostics.dll
+-a----       22/11/2018     23:49          68088 Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+-a----       25/10/2018     18:31          22096 Microsoft.AspNetCore.dll
+-a----       22/11/2018     23:49          21496 Microsoft.AspNetCore.HostFiltering.dll
+-a----       22/11/2018     23:49          23032 Microsoft.AspNetCore.Hosting.Abstractions.dll
+-a----       22/11/2018     23:49         133624 Microsoft.AspNetCore.Hosting.dll
+-a----       22/11/2018     23:49          15352 Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+-a----       22/11/2018     23:49          19960 Microsoft.AspNetCore.Html.Abstractions.dll
+-a----       22/11/2018     23:49          75768 Microsoft.AspNetCore.Http.Abstractions.dll
+-a----       20/09/2018     15:08          25680 Microsoft.AspNetCore.Http.Connections.Common.dll
+-a----       20/09/2018     15:08         107088 Microsoft.AspNetCore.Http.Connections.dll
+-a----       22/11/2018     23:49          81912 Microsoft.AspNetCore.Http.dll
+-a----       22/11/2018     23:49          38896 Microsoft.AspNetCore.Http.Extensions.dll
+-a----       22/11/2018     23:49          32248 Microsoft.AspNetCore.Http.Features.dll
+-a----       22/11/2018     23:49          30200 Microsoft.AspNetCore.HttpOverrides.dll
+-a----       22/11/2018     23:49          23544 Microsoft.AspNetCore.HttpsPolicy.dll
+-a----       25/10/2018     18:31          78904 Microsoft.AspNetCore.Identity.dll
+-a----       25/10/2018     18:31          97872 Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+-a----       25/10/2018     18:31        2440248 Microsoft.AspNetCore.Identity.UI.dll
+-a----       25/10/2018     18:31         330832 Microsoft.AspNetCore.Identity.UI.Views.dll
+-a----       22/11/2018     23:49          52216 Microsoft.AspNetCore.JsonPatch.dll
+-a----       22/11/2018     23:49          30200 Microsoft.AspNetCore.Localization.dll
+-a----       22/11/2018     23:49          15864 Microsoft.AspNetCore.Localization.Routing.dll
+-a----       22/11/2018     23:49          24568 Microsoft.AspNetCore.MiddlewareAnalysis.dll
+-a----       20/09/2018     15:08         100944 Microsoft.AspNetCore.Mvc.Abstractions.dll
+-a----       20/09/2018     15:08          41040 Microsoft.AspNetCore.Mvc.ApiExplorer.dll
+-a----       20/09/2018     15:08         569424 Microsoft.AspNetCore.Mvc.Core.dll
+-a----       20/09/2018     15:08          25680 Microsoft.AspNetCore.Mvc.Cors.dll
+-a----       20/09/2018     15:08          47184 Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+-a----       20/09/2018     15:08          19024 Microsoft.AspNetCore.Mvc.dll
+-a----       20/09/2018     15:08          38480 Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+-a----       20/09/2018     15:08          47696 Microsoft.AspNetCore.Mvc.Formatters.Xml.dll
+-a----       20/09/2018     15:08          32336 Microsoft.AspNetCore.Mvc.Localization.dll
+-a----       20/09/2018     15:08         144976 Microsoft.AspNetCore.Mvc.Razor.dll
+-a----       26/07/2018     18:17          89472 Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+-a----       20/09/2018     15:08         175696 Microsoft.AspNetCore.Mvc.RazorPages.dll
+-a----       20/09/2018     15:08         126544 Microsoft.AspNetCore.Mvc.TagHelpers.dll
+-a----       20/09/2018     15:08         288848 Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+-a----       22/11/2018     23:52          59384 Microsoft.AspNetCore.NodeServices.dll
+-a----       22/11/2018     23:52          78328 Microsoft.AspNetCore.Owin.dll
+-a----       26/07/2018     18:17          35200 Microsoft.AspNetCore.Razor.dll
+-a----       26/07/2018     18:17         470912 Microsoft.AspNetCore.Razor.Language.dll
+-a----       26/07/2018     18:17          33664 Microsoft.AspNetCore.Razor.Runtime.dll
+-a----       22/11/2018     23:48          14840 Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+-a----       22/11/2018     23:48          66552 Microsoft.AspNetCore.ResponseCaching.dll
+-a----       22/11/2018     23:48          31224 Microsoft.AspNetCore.ResponseCompression.dll
+-a----       22/11/2018     23:48          82960 Microsoft.AspNetCore.Rewrite.dll
+-a----       22/11/2018     23:48          37880 Microsoft.AspNetCore.Routing.Abstractions.dll
+-a----       22/11/2018     23:48         108024 Microsoft.AspNetCore.Routing.dll
+-a----       22/11/2018     23:48         186360 Microsoft.AspNetCore.Server.HttpSys.dll
+-a----       20/09/2018     15:08          96336 Microsoft.AspNetCore.Server.IISIntegration.dll
+-a----       26/07/2018     18:17         448384 Microsoft.AspNetCore.Server.Kestrel.Core.dll
+-a----       26/07/2018     18:17          18304 Microsoft.AspNetCore.Server.Kestrel.dll
+-a----       26/07/2018     18:17          16256 Microsoft.AspNetCore.Server.Kestrel.Https.dll
+-a----       26/07/2018     18:17          35200 Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll
+-a----       26/07/2018     18:17          41344 Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+-a----       22/11/2018     23:49          41464 Microsoft.AspNetCore.Session.dll
+-a----       20/09/2018     15:08          36944 Microsoft.AspNetCore.SignalR.Common.dll
+-a----       20/09/2018     15:08         122448 Microsoft.AspNetCore.SignalR.Core.dll
+-a----       20/09/2018     15:08          19024 Microsoft.AspNetCore.SignalR.dll
+-a----       20/09/2018     15:08          33872 Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+-a----       22/11/2018     23:49          47608 Microsoft.AspNetCore.SpaServices.dll
+-a----       22/11/2018     23:49          65016 Microsoft.AspNetCore.SpaServices.Extensions.dll
+-a----       22/11/2018     23:49          70648 Microsoft.AspNetCore.StaticFiles.dll
+-a----       22/11/2018     23:49          24056 Microsoft.AspNetCore.WebSockets.dll
+-a----       22/11/2018     23:49          66040 Microsoft.AspNetCore.WebUtilities.dll
+-a----       22/11/2018     23:48        4681136 Microsoft.CodeAnalysis.CSharp.dll
+-a----       22/11/2018     23:50        2414000 Microsoft.CodeAnalysis.dll
+-a----       26/07/2018     18:17          48512 Microsoft.CodeAnalysis.Razor.dll
+-a----       19/10/2018     10:12         304176 Microsoft.CSharp.dll
+-a----       19/10/2018     10:12        1495800 Microsoft.DiaSymReader.Native.amd64.dll
+-a----       19/10/2018     10:12        1020488 Microsoft.DiaSymReader.Native.arm.dll
+-a----       19/10/2018     10:12        1188080 Microsoft.DiaSymReader.Native.x86.dll
+-a----       22/11/2018     23:48          24024 Microsoft.DotNet.PlatformAbstractions.dll
+-a----       20/09/2018     15:08          20560 Microsoft.EntityFrameworkCore.Abstractions.dll
+-a----       20/09/2018     15:08         235088 Microsoft.EntityFrameworkCore.Design.dll
+-a----       20/09/2018     15:08        1426000 Microsoft.EntityFrameworkCore.dll
+-a----       20/09/2018     15:08          66128 Microsoft.EntityFrameworkCore.InMemory.dll
+-a----       20/09/2018     15:08         761424 Microsoft.EntityFrameworkCore.Relational.dll
+-a----       20/09/2018     15:08         232016 Microsoft.EntityFrameworkCore.SqlServer.dll
+-a----       26/07/2018     18:17          28032 Microsoft.Extensions.Caching.Abstractions.dll
+-a----       26/07/2018     18:17          33664 Microsoft.Extensions.Caching.Memory.dll
+-a----       26/07/2018     18:17          48512 Microsoft.Extensions.Caching.SqlServer.dll
+-a----       22/11/2018     23:49          20472 Microsoft.Extensions.Configuration.Abstractions.dll
+-a----       22/11/2018     23:49          25080 Microsoft.Extensions.Configuration.Binder.dll
+-a----       22/11/2018     23:49          19960 Microsoft.Extensions.Configuration.CommandLine.dll
+-a----       22/11/2018     23:49          25592 Microsoft.Extensions.Configuration.dll
+-a----       22/11/2018     23:49          19960 Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+-a----       22/11/2018     23:49          22008 Microsoft.Extensions.Configuration.FileExtensions.dll
+-a----       22/11/2018     23:49          19960 Microsoft.Extensions.Configuration.Ini.dll
+-a----       22/11/2018     23:49          24056 Microsoft.Extensions.Configuration.Json.dll
+-a----       22/11/2018     23:49          18424 Microsoft.Extensions.Configuration.KeyPerFile.dll
+-a----       22/11/2018     23:49          19960 Microsoft.Extensions.Configuration.UserSecrets.dll
+-a----       22/11/2018     23:49          23032 Microsoft.Extensions.Configuration.Xml.dll
+-a----       22/11/2018     23:49          36856 Microsoft.Extensions.DependencyInjection.Abstractions.dll
+-a----       22/11/2018     23:49          60920 Microsoft.Extensions.DependencyInjection.dll
+-a----       22/11/2018     23:49          62944 Microsoft.Extensions.DependencyModel.dll
+-a----       22/11/2018     23:49          40432 Microsoft.Extensions.DiagnosticAdapter.dll
+-a----       22/11/2018     23:49          17912 Microsoft.Extensions.FileProviders.Abstractions.dll
+-a----       22/11/2018     23:49          17400 Microsoft.Extensions.FileProviders.Composite.dll
+-a----       22/11/2018     23:49          31736 Microsoft.Extensions.FileProviders.Embedded.dll
+-a----       22/11/2018     23:49          31736 Microsoft.Extensions.FileProviders.Physical.dll
+-a----       22/11/2018     23:49          39416 Microsoft.Extensions.FileSystemGlobbing.dll
+-a----       22/11/2018     23:49          23032 Microsoft.Extensions.Hosting.Abstractions.dll
+-a----       22/11/2018     23:49          33272 Microsoft.Extensions.Hosting.dll
+-a----       22/11/2018     23:50          49648 Microsoft.Extensions.Http.dll
+-a----       25/10/2018     18:31         171600 Microsoft.Extensions.Identity.Core.dll
+-a----       25/10/2018     18:31          41032 Microsoft.Extensions.Identity.Stores.dll
+-a----       22/11/2018     23:50          17400 Microsoft.Extensions.Localization.Abstractions.dll
+-a----       22/11/2018     23:50          29168 Microsoft.Extensions.Localization.dll
+-a----       22/11/2018     23:50          47632 Microsoft.Extensions.Logging.Abstractions.dll
+-a----       22/11/2018     23:50          18928 Microsoft.Extensions.Logging.Configuration.dll
+-a----       22/11/2018     23:50          33272 Microsoft.Extensions.Logging.Console.dll
+-a----       22/11/2018     23:50          16888 Microsoft.Extensions.Logging.Debug.dll
+-a----       22/11/2018     23:50          31736 Microsoft.Extensions.Logging.dll
+-a----       22/11/2018     23:50          26104 Microsoft.Extensions.Logging.EventSource.dll
+-a----       22/11/2018     23:50          19448 Microsoft.Extensions.Logging.TraceSource.dll
+-a----       25/10/2018     18:31          19024 Microsoft.Extensions.ObjectPool.dll
+-a----       22/11/2018     23:50          18448 Microsoft.Extensions.Options.ConfigurationExtensions.dll
+-a----       22/11/2018     23:50          40440 Microsoft.Extensions.Options.dll
+-a----       25/10/2018     18:30          35912 Microsoft.Extensions.Primitives.dll
+-a----       22/11/2018     23:50          19952 Microsoft.Extensions.WebEncoders.dll
+-a----       22/11/2018     23:50          29296 Microsoft.IdentityModel.Logging.dll
+-a----       22/11/2018     23:50          36464 Microsoft.IdentityModel.Protocols.dll
+-a----       22/11/2018     23:50         109168 Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+-a----       22/11/2018     23:50          49776 Microsoft.IdentityModel.Protocols.WsFederation.dll
+-a----       22/11/2018     23:50         138864 Microsoft.IdentityModel.Tokens.dll
+-a----       22/11/2018     23:50         183920 Microsoft.IdentityModel.Tokens.Saml.dll
+-a----       22/11/2018     23:50          75888 Microsoft.IdentityModel.Xml.dll
+-a----       22/11/2018     23:50          74744 Microsoft.Net.Http.Headers.dll
+-a----       19/10/2018     10:12         178736 Microsoft.VisualBasic.dll
+-a----       19/10/2018     10:12          24112 Microsoft.Win32.Primitives.dll
+-a----       19/10/2018     10:12          50736 Microsoft.Win32.Registry.dll
+-a----       19/10/2018     10:12        1338928 mscordaccore.dll
+-a----       19/10/2018     10:12        1338928 mscordaccore_arm_arm_4.6.27019.06.dll
+-a----       19/10/2018     10:12        1130032 mscordbi.dll
+-a----       19/10/2018     10:12          63024 mscorlib.dll
+-a----       19/10/2018     10:12         358448 mscorrc.debug.dll
+-a----       19/10/2018     10:12          20016 mscorrc.dll
+-a----       19/10/2018     10:12         100608 netstandard.dll
+-a----       23/11/2018      1:14          90624 Newtonsoft.Json.Bson.dll
+-a----       22/11/2018     23:50         656384 Newtonsoft.Json.dll
+-a----       22/11/2018     23:52         176640 Remotion.Linq.dll
+-a----       19/10/2018     10:12         600112 sos.dll
+-a----       19/10/2018     10:12          32304 SOS.NETCore.dll
+-a----       19/10/2018     10:12         600112 sos_arm_arm_4.6.27019.06.dll
+-a----       19/10/2018     10:12          22576 System.AppContext.dll
+-a----       19/10/2018     10:12          22784 System.Buffers.dll
+-a----       19/10/2018     10:12          95280 System.Collections.Concurrent.dll
+-a----       19/10/2018     10:12         109104 System.Collections.dll
+-a----       19/10/2018     10:12         358448 System.Collections.Immutable.dll
+-a----       19/10/2018     10:12          53296 System.Collections.NonGeneric.dll
+-a----       19/10/2018     10:12          48176 System.Collections.Specialized.dll
+-a----       19/10/2018     10:12          80944 System.ComponentModel.Annotations.dll
+-a----       19/10/2018     10:12          21744 System.ComponentModel.DataAnnotations.dll
+-a----       19/10/2018     10:12          21760 System.ComponentModel.dll
+-a----       19/10/2018     10:12          30768 System.ComponentModel.EventBasedAsync.dll
+-a----       19/10/2018     10:12          37424 System.ComponentModel.Primitives.dll
+-a----       19/10/2018     10:12         266288 System.ComponentModel.TypeConverter.dll
+-a----       19/10/2018     10:12          24112 System.Configuration.dll
+-a----       19/10/2018     10:12          81968 System.Console.dll
+-a----       19/10/2018     10:12          26672 System.Core.dll
+-a----       19/10/2018     10:12         943664 System.Data.Common.dll
+-a----       19/10/2018     10:12          30256 System.Data.dll
+-a----       22/11/2018     23:49         989352 System.Data.SqlClient.dll
+-a----       19/10/2018     10:12          23088 System.Diagnostics.Contracts.dll
+-a----       19/10/2018     10:12          22576 System.Diagnostics.Debug.dll
+-a----       19/10/2018     10:12          44288 System.Diagnostics.DiagnosticSource.dll
+-a----       19/10/2018     10:12          28720 System.Diagnostics.FileVersionInfo.dll
+-a----       19/10/2018     10:12         114736 System.Diagnostics.Process.dll
+-a----       19/10/2018     10:12          32816 System.Diagnostics.StackTrace.dll
+-a----       19/10/2018     10:12          27696 System.Diagnostics.TextWriterTraceListener.dll
+-a----       19/10/2018     10:12          23088 System.Diagnostics.Tools.dll
+-a----       19/10/2018     10:12          57904 System.Diagnostics.TraceSource.dll
+-a----       19/10/2018     10:12          31280 System.Diagnostics.Tracing.dll
+-a----       19/10/2018     10:12          55856 System.dll
+-a----       19/10/2018     10:12          25344 System.Drawing.dll
+-a----       19/10/2018     10:12          57392 System.Drawing.Primitives.dll
+-a----       19/10/2018     10:12          23088 System.Dynamic.Runtime.dll
+-a----       19/10/2018     10:12          23088 System.Globalization.Calendars.dll
+-a----       19/10/2018     10:12          22576 System.Globalization.dll
+-a----       19/10/2018     10:12          22576 System.Globalization.Extensions.dll
+-a----       22/11/2018     23:52          90736 System.IdentityModel.Tokens.Jwt.dll
+-a----       23/11/2018      1:15         236320 System.Interactive.Async.dll
+-a----       19/10/2018     10:12          42544 System.IO.Compression.Brotli.dll
+-a----       19/10/2018     10:12         117808 System.IO.Compression.dll
+-a----       19/10/2018     10:12          20016 System.IO.Compression.FileSystem.dll
+-a----       19/10/2018     10:12          28720 System.IO.Compression.ZipFile.dll
+-a----       19/10/2018     10:12          22576 System.IO.dll
+-a----       19/10/2018     10:12          37936 System.IO.FileSystem.AccessControl.dll
+-a----       19/10/2018     10:12         102448 System.IO.FileSystem.dll
+-a----       19/10/2018     10:12          33328 System.IO.FileSystem.DriveInfo.dll
+-a----       19/10/2018     10:12          22576 System.IO.FileSystem.Primitives.dll
+-a----       19/10/2018     10:12          41520 System.IO.FileSystem.Watcher.dll
+-a----       19/10/2018     10:12          47152 System.IO.IsolatedStorage.dll
+-a----       19/10/2018     10:12          45104 System.IO.MemoryMappedFiles.dll
+-a----       18/09/2018     19:38          48176 System.IO.Pipelines.dll
+-a----       19/10/2018     10:12          23600 System.IO.Pipes.AccessControl.dll
+-a----       19/10/2018     10:12          70192 System.IO.Pipes.dll
+-a----       19/10/2018     10:12          22576 System.IO.UnmanagedMemoryStream.dll
+-a----       19/10/2018     10:12         140848 System.Linq.dll
+-a----       19/10/2018     10:12         549424 System.Linq.Expressions.dll
+-a----       19/10/2018     10:12         220720 System.Linq.Parallel.dll
+-a----       19/10/2018     10:12          74288 System.Linq.Queryable.dll
+-a----       19/10/2018     10:12          96000 System.Memory.dll
+-a----       19/10/2018     10:12          22576 System.Net.dll
+-a----       19/10/2018     10:12         419376 System.Net.Http.dll
+-a----       22/11/2018     23:53         184968 System.Net.Http.Formatting.dll
+-a----       19/10/2018     10:12         268544 System.Net.HttpListener.dll
+-a----       19/10/2018     10:12         213760 System.Net.Mail.dll
+-a----       19/10/2018     10:12          52272 System.Net.NameResolution.dll
+-a----       19/10/2018     10:12          98864 System.Net.NetworkInformation.dll
+-a----       19/10/2018     10:12          53296 System.Net.Ping.dll
+-a----       19/10/2018     10:12          91696 System.Net.Primitives.dll
+-a----       19/10/2018     10:12         146480 System.Net.Requests.dll
+-a----       19/10/2018     10:12         219176 System.Net.Security.dll
+-a----       19/10/2018     10:12          30448 System.Net.ServicePoint.dll
+-a----       19/10/2018     10:12         202792 System.Net.Sockets.dll
+-a----       19/10/2018     10:12          73984 System.Net.WebClient.dll
+-a----       19/10/2018     10:12          42032 System.Net.WebHeaderCollection.dll
+-a----       19/10/2018     10:12          26368 System.Net.WebProxy.dll
+-a----       19/10/2018     10:12          47152 System.Net.WebSockets.Client.dll
+-a----       19/10/2018     10:12          66096 System.Net.WebSockets.dll
+-a----       22/11/2018     23:50          55952 System.Net.WebSockets.WebSocketProtocol.dll
+-a----       19/10/2018     10:12          20528 System.Numerics.dll
+-a----       19/10/2018     10:12          75312 System.Numerics.Vectors.dll
+-a----       19/10/2018     10:12          49712 System.ObjectModel.dll
+-a----       19/10/2018     10:12        9522224 System.Private.CoreLib.dll
+-a----       19/10/2018     10:12         750128 System.Private.DataContractSerialization.dll
+-a----       19/10/2018     10:12         104496 System.Private.Uri.dll
+-a----       19/10/2018     10:12        3005184 System.Private.Xml.dll
+-a----       19/10/2018     10:12         149248 System.Private.Xml.Linq.dll
+-a----       19/10/2018     10:12          41520 System.Reflection.DispatchProxy.dll
+-a----       19/10/2018     10:12          23600 System.Reflection.dll
+-a----       19/10/2018     10:12          22576 System.Reflection.Emit.dll
+-a----       19/10/2018     10:12          22576 System.Reflection.Emit.ILGeneration.dll
+-a----       19/10/2018     10:12          22576 System.Reflection.Emit.Lightweight.dll
+-a----       19/10/2018     10:12          22576 System.Reflection.Extensions.dll
+-a----       19/10/2018     10:12         569392 System.Reflection.Metadata.dll
+-a----       19/10/2018     10:12          22576 System.Reflection.Primitives.dll
+-a----       19/10/2018     10:12          28720 System.Reflection.TypeExtensions.dll
+-a----       19/10/2018     10:12          22576 System.Resources.Reader.dll
+-a----       19/10/2018     10:12          22576 System.Resources.ResourceManager.dll
+-a----       19/10/2018     10:12          31792 System.Resources.Writer.dll
+-a----       18/09/2018     19:38          23088 System.Runtime.CompilerServices.Unsafe.dll
+-a----       19/10/2018     10:12          22064 System.Runtime.CompilerServices.VisualC.dll
+-a----       19/10/2018     10:12          50224 System.Runtime.dll
+-a----       19/10/2018     10:12         171568 System.Runtime.Extensions.dll
+-a----       19/10/2018     10:12          22576 System.Runtime.Handles.dll
+-a----       19/10/2018     10:12          42032 System.Runtime.InteropServices.dll
+-a----       19/10/2018     10:12          27184 System.Runtime.InteropServices.RuntimeInformation.dll
+-a----       19/10/2018     10:12          23600 System.Runtime.InteropServices.WindowsRuntime.dll
+-a----       19/10/2018     10:12          22576 System.Runtime.Loader.dll
+-a----       19/10/2018     10:12          77360 System.Runtime.Numerics.dll
+-a----       19/10/2018     10:12          21552 System.Runtime.Serialization.dll
+-a----       19/10/2018     10:12         133168 System.Runtime.Serialization.Formatters.dll
+-a----       19/10/2018     10:12          22576 System.Runtime.Serialization.Json.dll
+-a----       19/10/2018     10:12          27696 System.Runtime.Serialization.Primitives.dll
+-a----       19/10/2018     10:12          23600 System.Runtime.Serialization.Xml.dll
+-a----       19/10/2018     10:12          95792 System.Security.AccessControl.dll
+-a----       19/10/2018     10:12          54832 System.Security.Claims.dll
+-a----       19/10/2018     10:12         153136 System.Security.Cryptography.Algorithms.dll
+-a----       19/10/2018     10:12         117808 System.Security.Cryptography.Cng.dll
+-a----       19/10/2018     10:12          82992 System.Security.Cryptography.Csp.dll
+-a----       19/10/2018     10:12          45104 System.Security.Cryptography.Encoding.dll
+-a----       19/10/2018     10:12          29744 System.Security.Cryptography.OpenSsl.dll
+-a----       22/11/2018     23:52         211088 System.Security.Cryptography.Pkcs.dll
+-a----       19/10/2018     10:12          53288 System.Security.Cryptography.Primitives.dll
+-a----       19/10/2018     10:12         170544 System.Security.Cryptography.X509Certificates.dll
+
+
+[pcplaymobil]: PS C:\Data\Users\administrator\webapps\Gastia.IoT.Pocs.Web.Aspnetcore2webapp> .\Gastia.IoT.Pocs.Web.Aspnetcore2
+webapp.exe
+Hosting environment: Production
+Content root path: C:\Data\Users\administrator\webapps\Gastia.IoT.Pocs.Web.Aspnetcore2webapp
+Now listening on: http://[::]:8082
+Application started. Press Ctrl+C to shut down.
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+The pipeline has been stopped.
+    + CategoryInfo          : OperationStopped: (:) [], PipelineStoppedException
+    + FullyQualifiedErrorId : PipelineStopped
+
+[pcplaymobil]: PS C:\Data\Users\administrator\webapps\Gastia.IoT.Pocs.Web.Aspnetcore2webapp>
+
+

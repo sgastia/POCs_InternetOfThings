@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://gunnarpeipman.com/iot/aspnet-core-windows-iot/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	 
+<link rel="icon" href="https://gunnarpeipman.com/favicon.png">
+	<link rel="pingback" href="https://gunnarpeipman.com/xmlrpc.php">
+	<link rel="stylesheet" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/style.css" type="text/css">
+	<link rel="alternate" href="http://gunnarpeipman.com/" hreflang="en">
+	<meta name="baidu-site-verification" content="kTlkp9IS3Q">
+	
+<script src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(8).txt"></script><script src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/ca-pub-3746700224102026.js.descarga"></script><script async="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/analytics.js.descarga"></script><script id="facebook-jssdk" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/sdk.js.descarga"></script><script>(function(d, s, id){
+				 var js, fjs = d.getElementsByTagName(s)[0];
+				 if (d.getElementById(id)) {return;}
+				 js = d.createElement(s); js.id = id;
+				 js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+				 fjs.parentNode.insertBefore(js, fjs);
+			   }(document, 'script', 'facebook-jssdk'));</script>
+<!-- This site is optimized with the Yoast SEO plugin v9.2.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Running ASP.NET Core 2 applications on Windows 10 IoT Core | Gunnar Peipman - Programming Blog</title>
+<meta name="description" content="Article about how to make ASP.NET Core web application run on Windows 10 IoT Core and how to start web application when device starts.">
+<link rel="canonical" href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Running ASP.NET Core 2 applications on Windows 10 IoT Core">
+<meta property="og:description" content="Article about how to make ASP.NET Core web application run on Windows 10 IoT Core and how to start web application when device starts.">
+<meta property="og:url" content="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/">
+<meta property="og:site_name" content="Gunnar Peipman -  Programming Blog">
+<meta property="article:section" content="IoT">
+<meta property="article:published_time" content="2017-12-11T07:05:00+00:00">
+<meta property="article:modified_time" content="2018-05-17T19:30:15+00:00">
+<meta property="og:updated_time" content="2018-05-17T19:30:15+00:00">
+<meta property="og:image" content="https://gunnarpeipman.com/wp-content/uploads/2017/12/aspnet-core-on-arm-publish.png">
+<meta property="og:image:secure_url" content="https://gunnarpeipman.com/wp-content/uploads/2017/12/aspnet-core-on-arm-publish.png">
+<meta property="og:image:width" content="602">
+<meta property="og:image:height" content="224">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Article about how to make ASP.NET Core web application run on Windows 10 IoT Core and how to start web application when device starts.">
+<meta name="twitter:title" content="Running ASP.NET Core 2 applications on Windows 10 IoT Core">
+<meta name="twitter:site" content="@gpeipman">
+<meta name="twitter:image" content="http://gunnarpeipman.com/wp-content/uploads/2017/12/aspnet-core-on-arm-publish.png">
+<meta name="twitter:creator" content="@gpeipman">
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Person","url":"https:\/\/gunnarpeipman.com\/","sameAs":["https:\/\/twitter.com\/gpeipman"],"@id":"#person","name":"Gunnar Peipman"}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/gunnarpeipman.com\/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@id":"https:\/\/gunnarpeipman.com\/iot\/","name":"IoT"}},{"@type":"ListItem","position":3,"item":{"@id":"https:\/\/gunnarpeipman.com\/iot\/aspnet-core-windows-iot\/","name":"Running ASP.NET Core 2 applications on Windows 10 IoT Core"}}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="amphtml" href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/amp/"><link rel="dns-prefetch" href="https://ws.sharethis.com/">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://maxcdn.bootstrapcdn.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Gunnar Peipman -  Programming Blog » Feed" href="https://gunnarpeipman.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Gunnar Peipman -  Programming Blog » Comments Feed" href="https://gunnarpeipman.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Gunnar Peipman -  Programming Blog » Running ASP.NET Core 2 applications on Windows 10 IoT Core Comments Feed" href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/gunnarpeipman.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.8"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/wp-emoji-release.min.js.descarga" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="cntctfrm_form_style-css" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/form_style.css" type="text/css" media="all">
+<link rel="stylesheet" id="saswp-style-css" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saswp-style.css" type="text/css" media="all">
+<link rel="stylesheet" id="simple-share-buttons-adder-indie-css" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="simple-share-buttons-adder-font-awesome-css" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/font-awesome.min.css" type="text/css" media="all">
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/jquery.js.descarga"></script>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/jquery-migrate.min.js.descarga"></script>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/flexo-anim.js.descarga"></script>
+<script id="st_insights_js" type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/st_insights.js.descarga"></script>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/scripts.js.descarga"></script>
+<link rel="https://api.w.org/" href="https://gunnarpeipman.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gunnarpeipman.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://gunnarpeipman.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.9.8">
+<link rel="shortlink" href="https://gunnarpeipman.com/?p=3237">
+<link rel="alternate" type="application/json+oembed" href="https://gunnarpeipman.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgunnarpeipman.com%2Fiot%2Faspnet-core-windows-iot%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://gunnarpeipman.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgunnarpeipman.com%2Fiot%2Faspnet-core-windows-iot%2F&amp;format=xml">
+<!-- Schema & Structured Data For WP v1.0.4.1 - -->
+<script type="application/ld+json">
+[]
+</script>
+
+
+
+<!-- This site is optimized with the Schema plugin v1.7.2 - https://schema.press -->
+<script type="application/ld+json">{"@context":"http:\/\/schema.org\/","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/gunnarpeipman.com\/iot\/aspnet-core-windows-iot\/"},"url":"https:\/\/gunnarpeipman.com\/iot\/aspnet-core-windows-iot\/","headline":"Running ASP.NET Core 2 applications on Windows 10 IoT Core","datePublished":"2017-12-11T09:05:00+00:00","dateModified":"2018-05-17T21:30:15+00:00","publisher":{"@type":"Organization","@id":"https:\/\/gunnarpeipman.com\/#organization","name":"Gunnar Peipman","logo":{"@type":"ImageObject","url":"http:\/\/gunnarpeipman.com\/wp-content\/uploads\/2018\/05\/gunnar-peipman-publisher.png","width":600,"height":60}},"image":{"@type":"ImageObject","url":"https:\/\/gunnarpeipman.com\/wp-content\/uploads\/2018\/05\/gunnar-sinine-sinergija-3-512bw.jpg","width":696,"height":512},"articleSection":"ASP.NET","description":"It has been problematic to run ASP.NET Core applications on Windows 10 IoT Core as it is not officially supported scenario yet and many components we are used with are not built with Windows 10 ARM in mind. Still it easy to run web applications on Windows 10 IoT Core using ASP.NET Core 2. There are few tricks developers should know when building web applications for Windows 10 IoT Core. This blog post is short guide about ASP.NET Core 2 on Windows 10 IoT Core","author":{"@type":"Person","name":"Gunnar","url":"https:\/\/gunnarpeipman.com\/author\/gpeipman\/","image":{"@type":"ImageObject","url":"https:\/\/secure.gravatar.com\/avatar\/aa0bb47fa49dad694f1515f45deda860?s=96&d=mm&r=g","height":96,"width":96},"sameAs":["http:\/\/gunnarpeipman.com\/","gpeipman"]}}</script>
+
+<link rel="icon" href="https://gunnarpeipman.com/wp-content/uploads/2018/05/cropped-gunnar-sinine-sinergija-512bw-32x32.jpg" sizes="32x32">
+<link rel="icon" href="https://gunnarpeipman.com/wp-content/uploads/2018/05/cropped-gunnar-sinine-sinergija-512bw-192x192.jpg" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://gunnarpeipman.com/wp-content/uploads/2018/05/cropped-gunnar-sinine-sinergija-512bw-180x180.jpg">
+<meta name="msapplication-TileImage" content="https://gunnarpeipman.com/wp-content/uploads/2018/05/cropped-gunnar-sinine-sinergija-512bw-270x270.jpg">
+
+<!-- BEGIN ExactMetrics v5.3.5 Universal Analytics - https://exactmetrics.com/ -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-1080978-13', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- END ExactMetrics Universal Analytics -->
+<script src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(9).txt" async=""></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-3746700224102026",
+		enable_page_level_ads: true
+	  });
+</script>
+<link rel="preload" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(10).txt" as="script"><script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(10).txt"></script><link rel="preload" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(11).txt" as="script"><script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/f(11).txt"></script><link rel="preload" href="https://pagead2.googlesyndication.com/pagead/js/r20181107/r20180604/show_ads_impl.js" as="script"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head>
+<body class="post-template-default single single-post postid-3237 single-format-standard"><div id="MathJax_Message" style="display: none;"></div>
+	
+	<header>
+		<div>
+			
+			<div class="head-area">
+            	<p class="title"><a href="https://gunnarpeipman.com/">Gunnar Peipman –  Programming Blog</a></p>
+           		<p class="tagline" style="display:none"></p>
+            </div>            
+			
+		</div>
+	</header>
+	<nav>
+		<ul id="menu-main" class="menu"><li id="menu-item-3802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3802"><a href="https://gunnarpeipman.com/">Home</a></li>
+<li id="menu-item-3803" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3803"><a href="https://gunnarpeipman.com/bio/">Bio</a></li>
+<li id="menu-item-3804" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3804"><a href="https://gunnarpeipman.com/business/">Business</a></li>
+<li id="menu-item-3805" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3805"><a href="https://gunnarpeipman.com/presentations/">Presentations</a></li>
+<li id="menu-item-3806" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3806"><a href="https://gunnarpeipman.com/schedule/">Schedule</a></li>
+<li id="menu-item-3807" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3807"><a href="https://gunnarpeipman.com/series/">Series</a></li>
+<li id="menu-item-3808" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3808"><a href="https://gunnarpeipman.com/contact-me/">Contact me</a></li>
+</ul>		<div class="clear"><!-- --></div>
+	<select><option selected="selected" value="">Go to...</option><option value="/">Home</option><option value="https://gunnarpeipman.com/bio/">Bio</option><option value="https://gunnarpeipman.com/business/">Business</option><option value="https://gunnarpeipman.com/presentations/">Presentations</option><option value="https://gunnarpeipman.com/schedule/">Schedule</option><option value="/series/">Series</option><option value="https://gunnarpeipman.com/contact-me/">Contact me</option></select></nav>
+	<section class="content"><div>
+		
+<div class="main">
+<div style="display:none">
+<p id="breadcrumbs"><span><span><a href="https://gunnarpeipman.com/">Home</a> » <span><a href="https://gunnarpeipman.com/iot/">IoT</a> » <span class="breadcrumb_last">Running ASP.NET Core 2 applications on Windows 10 IoT Core</span></span></span></span></p></div>
+	<div style="width:620px; height: 100px;">
+	<!-- ContentTop -->
+	<ins class="adsbygoogle" style="display: block; height: 60px;" data-ad-client="ca-pub-3746700224102026" data-ad-slot="9914757941" data-ad-format="horizontal" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:620px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:620px;background-color:transparent;"><iframe width="620" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:620px;height:60px;" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource.html"></iframe></ins></ins></ins>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+			<article class="post hentry h-entry">
+			<div style="display:none" class="created">2017-12-11T09:05:00+00:00</div>
+			<div style="display:none" class="updated">2018-05-17T21:30:15+00:00</div>
+			<div style="display:none" class="entry-title">Running ASP.NET Core 2 applications on Windows 10 IoT Core</div>
+			<div style="display:none" class="vcard author"><span class="fn">Gunnar</span></div>
+			<p class="post-date date"><span>11</span> 12 2017</p>				
+				<div class="post-head">
+					<h1 class="entry-title">Running ASP.NET Core 2 applications on Windows 10 IoT Core </h1>
+					<p class="post-meta"><span><span class="icon author"></span> <span class="vcard author">Gunnar</span></span> | <span><span class="icon cats"></span><a href="https://gunnarpeipman.com/aspnet/">ASP.NET</a>, <a href="https://gunnarpeipman.com/iot/">IoT</a>, <a href="https://gunnarpeipman.com/windows/">Windows</a></span> | <a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comments" class="comment-link"><span class="icon comments"></span> 17</a> </p>
+				</div>
+			<!-- Simple Share Buttons Adder (7.4.18) simplesharebuttons.com --><div id="ssba-classic-2" class="ssba ssbp-wrap left ssbp--theme-1"><div style="text-align:right"><a href="https://simplesharebuttons.com/" target="_blank" class="ssba-share-text">Share with friends</a><a data-site="" class="ssba_twitter_share" href="http://twitter.com/share?url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/&amp;text=Running%20ASP.NET%20Core%202%20applications%20on%20Windows%2010%20IoT%20Core%20" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/twitter.png" style="width: 35px;" title="Twitter" class="ssba ssba-img" alt="Tweet about this on Twitter"><div title="Twitter" class="ssbp-text">Twitter</div></a><a data-site="" class="ssba_facebook_share" href="http://www.facebook.com/sharer.php?u=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/" target="_blank"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/facebook.png" style="width: 35px;" title="Facebook" class="ssba ssba-img" alt="Share on Facebook"><div title="Facebook" class="ssbp-text">Facebook</div></a><a data-site="linkedin" class="ssba_linkedin_share ssba_share_link" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/linkedin.png" style="width: 35px;" title="LinkedIn" class="ssba ssba-img" alt="Share on LinkedIn"><div title="Linkedin" class="ssbp-text">Linkedin</div></a><a data-site="digg" class="ssba_diggit_share ssba_share_link" href="http://www.digg.com/submit?url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/diggit.png" style="width: 35px;" title="Digg" class="ssba ssba-img" alt="Digg this"><div title="Digg" class="ssbp-text">Digg</div></a><a data-site="" class="ssba_google_share" href="https://plus.google.com/share?url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/google.png" style="width: 35px;" title="Google+" class="ssba ssba-img" alt="Share on Google+"><div title="Google+" class="ssbp-text">Google+</div></a><a data-site="pinterest" class="ssba_pinterest_share" href="javascript:void((function()%7Bvar%20e=document.createElement(&#39;script&#39;);e.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);e.setAttribute(&#39;charset&#39;,&#39;UTF-8&#39;);e.setAttribute(&#39;src&#39;,&#39;//assets.pinterest.com/js/pinmarklet.js?r=&#39;+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/pinterest.png" style="width: 35px;" title="Pinterest" class="ssba ssba-img" alt="Pin on Pinterest"><div title="Pinterest" class="ssbp-text">Pinterest</div></a><a data-site="reddit" class="ssba_reddit_share" href="http://reddit.com/submit?url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/&amp;title=Running%20ASP.NET%20Core%202%20applications%20on%20Windows%2010%20IoT%20Core" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/reddit.png" style="width: 35px;" title="Reddit" class="ssba ssba-img" alt="Share on Reddit"><div title="Reddit" class="ssbp-text">Reddit</div></a><a data-site="stumbleupon" class="ssba_stumbleupon_share ssba_share_link" href="http://www.stumbleupon.com/submit?url=https://gunnarpeipman.com/iot/aspnet-core-windows-iot/&amp;title=Running%20ASP.NET%20Core%202%20applications%20on%20Windows%2010%20IoT%20Core" target="&quot;_blank&quot;"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/stumbleupon.png" style="width: 35px;" title="StumbleUpon" class="ssba ssba-img" alt="Share on StumbleUpon"><div title="StumbleUpon" class="ssbp-text">StumbleUpon</div></a></div></div><p>It has been problematic to run <a title="ASP.NET Core" href="http://asp.net/">ASP.NET Core</a> applications on <a title="Windows 10 IoT Core" href="https://developer.microsoft.com/en-us/windows/iot">Windows 10 IoT Core</a> as it is not officially supported scenario yet and many components we are used with are not built with Windows 10 ARM in mind. Still it easy to run web applications on Windows 10 IoT Core using ASP.NET Core 2. There are few tricks developers should know when building web applications for Windows 10 IoT Core. This blog post is short guide about ASP.NET Core 2 on Windows 10 IoT Core</p>
+<p><span id="more-3237"></span></p>
+<p>Few things to mention before making hands dirty with real stuff:</p>
+<ul>
+<li>ASP.NET Core on Windows 10 IoT Core is not officially supported scenario yet,</li>
+<li>there is only .NET Core runtime available for Windows 10 on ARM but not SDK (yes, there is no dotnet restore and dotnet build etc available),</li>
+<li>not all things that work on dev box will work on Windows 10 IoT Core and some of these things come out when trying to run web application on board.</li>
+</ul>
+<p>With these warnings in mind let’s stat at safe waters and make default ASP.NET Core 2 web application run on Windows 10 IoT Core.</p>
+<h3>Building web application</h3>
+<p>I created default ASP.NET Core 2 web application with Visual Studio and made compiler build also .exe file that can be run directly. Just open project file and add output type setting.&nbsp; </p>
+<hr size="1">
+<pre style="background: white; color: black; font-family: consolas;"><span style="color: blue;">&lt;</span><span style="color: rgb(163, 21, 21);">PropertyGroup</span><span style="color: blue;">&gt;</span><br><span style="color: blue;">&nbsp; &lt;</span><span style="color: rgb(163, 21, 21);">TargetFramework</span><span style="color: blue;">&gt;</span>netcoreapp2.0<span style="color: blue;">&lt;/</span><span style="color: rgb(163, 21, 21);">TargetFramework</span><span style="color: blue;">&gt;</span><br><span style="color: blue;">&nbsp; &lt;</span><span style="color: rgb(163, 21, 21);">OutputType</span><span style="color: blue;">&gt;</span>Exe<span style="color: blue;">&lt;/</span><span style="color: rgb(163, 21, 21);">OutputType</span><span style="color: blue;">&gt;</span><br><span style="color: blue;">&lt;/</span><span style="color: rgb(163, 21, 21);">PropertyGroup</span><span style="color: blue;">&gt;</span></pre>
+<hr size="1">
+<p>Now we can build web application just to find out that .exe file is not there. We will get it when publishing application.</p>
+<p>Before building and deploying our web application to board we have to make it listen port 5000 on all interfaces. For this we modify porgam class and use * as host name.</p>
+<hr size="1">
+<pre style="background: white; color: black; font-family: consolas;"><span style="color: blue;">public</span>&nbsp;<span style="color: blue;">class</span>&nbsp;<span style="color: rgb(43, 145, 175);">Program</span><br>{<br>&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span>&nbsp;<span style="color: blue;">static</span>&nbsp;<span style="color: blue;">void</span> Main(<span style="color: blue;">string</span>[] args)<br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BuildWebHost(args).Run();<br>&nbsp;&nbsp;&nbsp; }<br> <br>&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span>&nbsp;<span style="color: blue;">static</span>&nbsp;<span style="color: rgb(43, 145, 175);">IWebHost</span> BuildWebHost(<span style="color: blue;">string</span>[] args) =&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: rgb(43, 145, 175);">WebHost</span>.CreateDefaultBuilder(args)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .UseUrls(<span style="color: rgb(163, 21, 21);">"http://*:5000"</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .UseStartup&lt;<span style="color: rgb(43, 145, 175);">Startup</span>&gt;()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Build();<br>}</pre>
+<hr size="1">
+<p>To deploy our application to Windows 10 IoT Core we need to publish it and tell dotnet utility that we want to support Windows 10 on ARM. This is done using the following command line.</p>
+<p>&nbsp;&nbsp;&nbsp; dotnet publish -r win-arm </p>
+<p>
+	<span style="color:red">Pasos:<br>
+	- abrir cmd<br>
+	- cd a la carpeta raiz del proyecto<br>
+	- y recien ahi correr el comando<br>
+	</span>
+</p>
+<p>If everything went well then published files are in folder bin\Debug\netcoreapp2.0\win-arm\publish.</p>
+<p><img width="602" height="224" title="ASP.NET Core 2 application published for Windows 10 IoT Core" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="ASP.NET Core 2 application published for Windows 10 IoT Core" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/aspnet-core-on-arm-publish.png" border="0"></p>
+<p>Size of the publish folder in my case is 73 MB.</p>
+<h3>Deploying web application to Windows 10 IoT Core</h3>
+<p>To make simple test run for web application we need to deploy it to Windows 10 IoT Core. Expecting we have one set up and available here are steps to follow.</p>
+<ol>
+<li>Open PowerShell in Administration permissions and run the following command:
+<p>Enter-PSSession -ComputerName minwinpc -Credential minwinpc\Administrator</p>
+<p>When logon dialog opens enter your Windows 10 IoT Core password.<br>&nbsp;</p>
+<p>
+	<span style="color:red">Si no se puede acceder hay que corre los habilitar la pc de destino:<br>
+		winrm quickconfig<br>
+		set-item wsman:\localhost\Client\TrustedHosts -value &lt;ip o nombre pc del raspberry&gt;
+	</span>
+</p>
+</li>
+<li>Create folder for web application and move to this folder:
+<p>mkdir webapptest<br>cd webapptest<br>&nbsp; </p>
+<p>
+	<span style="color:red">En realidad, lo podes crear donde te quede comodo, es decir, en cualquier carpeta
+	</span>
+</p>
+
+</li>
+<li>Open Windows Explorer and move to your board’s drive:<br>&nbsp;<br>\\minwinpc\c$
+<p>Enter password when it is asked and then move to webapptest folder.<br>&nbsp; </p></li>
+<li>Take files from web application publish folder and copy these to webapptest folder created before.</li>
+<li>Run the following command in PowerShell to open port 5000 of board:<br>&nbsp; <br>netsh advfirewall firewall add rule name=”ASP.NET Core Web Server port” dir=in action=allow protocol=TCP localport=5000 <br>&nbsp; </li>
+<li>Next, in PowerShell, run web application using .exe file:<br>&nbsp;<br>.\WebApplication6.exe</li>
+</ol>
+<p>If there are no problematic dependencies in our web application then we can see some output to PowerShell window. </p>
+<p align="center"><img width="650" height="84" title="ASP.NET Core 2 application running on Windows 10 IoT Core" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="ASP.NET Core 2 application running on Windows 10 IoT Core" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/aspnet-core-windows-iot-powershell.png" border="0"></p>
+<p>Notice that ASP.NET Core is listening to port 5000 on all network interfaces. Let’s open application now using browser.</p>
+<p align="center"><img width="594" height="569" title="ASP.NET Core 2 application running on Windows 10 IoT Core" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="ASP.NET Core 2 application running on Windows 10 IoT Core" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/aspnet-core-windows-10-iot-core.png" border="0"></p>
+<p>We don’t see any debug output in PowerShell except exceptions if there are some.</p>
+<blockquote>
+<p><strong>NB!</strong> First request to web application is very slow but after this web application works fast and doesn’t put much load to board. Most of requests doesn’t consume much CPU and working set of memory is around 104 MB.</p>
+</blockquote>
+<h3>Running ASP.NET Core application at system startup</h3>
+<p>The final thing that caused some issues for me and other readers was getting ASP.NET Core 2 application automatically run when Raspberry boots up. I found <a href="https://carlos.mendible.com/2017/03/26/raspberry-pi-run-aspnet-core-on-startup/" title="Raspberry Pi: Run ASP.NET Core on Startup">excellent guide by Carlos Mendible</a> that helped me out. The point is simple. We have to create DOS batch file to run PowerShell script that actually runs our web application. Batch =&gt; PowerShell =&gt; WebApplication. After creating these two files we have to register the batch file as scheduled task run once when system starts.</p>
+<p>If you were in trouble with this and made experiments that didn’t succeed then please make sure you remove all previous scheduled tasks you created.</p>
+<h3>Wrapping up</h3>
+<p>Previously it was harder to make ASP.NET Core applications run on Windows 10 IoT Core but with ASP.NET Core 2 we can do it with less effort and hacking. All we had to do to make default web application run on Windows 10 IoT Core was to build it as executable and then publish it to board. It is still risky business as many things that run on usual boxes without any issues are not built with Windows on ARM in mind and issues with these components come usually out when running application on board. Still we can use ASP.NET Core on Windows 10 IoT Core and come out with solutions where simple web server on board is needed.</p>
+									<hr size="1" style="margin-top: 20px">
+			<!--
+			<p></p>
+			-->
+			<p class="pagination">
+				<span class="prev"><a href="https://gunnarpeipman.com/various/asus-rt-n66u/" rel="prev">Boosting performance of Asus RT-N66U</a></span>
+				<span class="next"><a href="https://gunnarpeipman.com/visual-studio/visual-studio-editorconfig/" rel="next">Who messed up Visual Studio tab indent level?</a></span>
+			</p>
+			<hr size="1">
+
+			<h4>See also</h4>
+			<ins class="adsbygoogle" style="display: block; height: 364px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-3746700224102026" data-ad-slot="1424618743" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:364px;margin:0;padding:0;position:relative;visibility:visible;width:607px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:364px;margin:0;padding:0;position:relative;visibility:visible;width:607px;background-color:transparent;"><iframe width="607" height="364" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:607px;height:364px;" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource(1).html"></iframe></ins></ins></ins>
+			
+			<div id="comments">
+				
+<!-- You can start editing here. -->
+<div class="comments" style="margin-top:30px">
+
+	
+			<h3>17 thoughts on “<span>Running ASP.NET Core 2 applications on Windows 10 IoT Core</span>”</h3>
+		<ul class="commentlist">
+				<li class="pingback even thread-even depth-1" id="comment-141297">
+				<div id="div-comment-141297" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="http://blog.cwa.me.uk/2017/12/11/the-morning-brew-2483/" rel="external nofollow" class="url">The Morning Brew - Chris Alcock » The Morning Brew #2483</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141297">
+			December 11, 2017 at 10:14 am</a>		</div>
+
+		<p>[…] Running ASP.NET Core 2 applications on Windows 10 IoT Core – Gunnar Peipman […]</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-141348">
+				<div id="div-comment-141348" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/a8aa0d8181fcfd9b5c448acca227a96e.png" srcset="https://secure.gravatar.com/avatar/a8aa0d8181fcfd9b5c448acca227a96e?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Darren</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141348">
+			December 14, 2017 at 2:35 am</a>		</div>
+
+		<p>I followed the “Running ASP.NET Core 2 applications on Windows 10 IoT Core” by Gunnar Peipman.<br>
+Raspberry Pi 3, Windows 10 IoT core 10.0.16299.19 , apart from a few problems of my own making, the default web page was up and running, next I’m planning to use this as a basis for a control interface.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-141360">
+				<div id="div-comment-141360" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141360">
+			December 14, 2017 at 10:35 pm</a>		</div>
+
+		<p>This is something my next blog post will describe :) It’s actually the only option right now as ASP.NET Core 2 cannot be hosted in UWP background service. So, unfortunately there will be some inter-process communication. But still it’s possible to build great control panels for specialized devices.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-141481">
+				<div id="div-comment-141481" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/2dffc354a8873ea18a1f81a5ea73bfcd.png" srcset="https://secure.gravatar.com/avatar/2dffc354a8873ea18a1f81a5ea73bfcd?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Paul</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141481">
+			December 22, 2017 at 11:47 am</a>		</div>
+
+		<p>Hi, Very useful but is there a simple way to get it to run on startup?</p>
+<p>Paul</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-141501">
+				<div id="div-comment-141501" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/a8aa0d8181fcfd9b5c448acca227a96e.png" srcset="https://secure.gravatar.com/avatar/a8aa0d8181fcfd9b5c448acca227a96e?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Darren</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141501">
+			December 23, 2017 at 10:28 am</a>		</div>
+
+		<p><a href="https://docs.microsoft.com/en-us/windows/iot-core/develop-your-app/backgroundapplications" rel="nofollow">https://docs.microsoft.com/en-us/windows/iot-core/develop-your-app/backgroundapplications</a><br>
+This maybe a way to do it, but I’m also going to try installing the app into the normal App folder on Ras Pi 3, will post later.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-141502">
+				<div id="div-comment-141502" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141502">
+			December 23, 2017 at 10:54 am</a>		</div>
+
+		<p>Paul, this blog post may help you out: <a href="https://blog.falafel.com/windows-iot-core-powershell-on-startup/" rel="nofollow">https://blog.falafel.com/windows-iot-core-powershell-on-startup/</a> I haven’t tried it yet but it’s one of few solutions I found.</p>
+<p>Darren, I was not able to host ASP.NET Core web server in UWP background task and it is also officially not supported scenario yet. I tried to make it work but with all attempts I ran into different troubles that come to issues that are out of my reach.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-141554">
+				<div id="div-comment-141554" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/2dffc354a8873ea18a1f81a5ea73bfcd.png" srcset="https://secure.gravatar.com/avatar/2dffc354a8873ea18a1f81a5ea73bfcd?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">paul</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141554">
+			December 27, 2017 at 12:28 pm</a>		</div>
+
+		<p>I tried to get it to run from a scheduled task (directly and with a script) and although the process did run, when I browsed to the website it did not serve up the pages although it did connect. I guess it’s an issue to do with user rights? Wonder if it’s possible to right a uwp application to host the exe?</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-141555">
+				<div id="div-comment-141555" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141555">
+			December 27, 2017 at 1:11 pm</a>		</div>
+
+		<p>I will try to find some time today to play with this issue. It’s probably something with permissions because under admin account web applications run well.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-141556">
+				<div id="div-comment-141556" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141556">
+			December 27, 2017 at 2:32 pm</a>		</div>
+
+		<p>Paul, problem solved! The working guide is here: <a href="https://carlos.mendible.com/2017/03/26/raspberry-pi-run-aspnet-core-on-startup/" rel="nofollow">https://carlos.mendible.com/2017/03/26/raspberry-pi-run-aspnet-core-on-startup/</a> Make sure you don’t have any previous task registrations and create batch and PowerShell files as shown.</p>
+<p>I will update this blog post with short guidance.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-141632">
+				<div id="div-comment-141632" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/2dffc354a8873ea18a1f81a5ea73bfcd.png" srcset="https://secure.gravatar.com/avatar/2dffc354a8873ea18a1f81a5ea73bfcd?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Paul</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141632">
+			January 2, 2018 at 2:15 pm</a>		</div>
+
+		<p>Thanks Gunnar got it running but did have an issue with it not starting after following the guide i guess it was the on boarding background task that was stopping it. the only other thing i changed was “startup” to uppercase just through force of habit.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-141633">
+				<div id="div-comment-141633" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-141633">
+			January 2, 2018 at 2:25 pm</a>		</div>
+
+		<p>Here’s the full example about how to make Windows 10 IoT Core background task talk with ASP.NET Core web application using WebSocket: <a href="http://gunnarpeipman.com/2018/01/aspnet-core-windows-iot-websocket/" rel="nofollow">http://gunnarpeipman.com/2018/01/aspnet-core-windows-iot-websocket/</a> In my case both run on Raspberry.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-143293">
+				<div id="div-comment-143293" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/03e703d72d15db7c848f7fdc282bf692.png" srcset="https://secure.gravatar.com/avatar/03e703d72d15db7c848f7fdc282bf692?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Aleksey Gerasimov</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-143293">
+			April 29, 2018 at 4:12 pm</a>		</div>
+
+		<p>When I launch my .net core app in powershell on rb3 then I get the error^</p>
+<p>.\AYPAW_API.exe : A JSON parsing exception occurred in [C:\Users\Public\AYPAW\AYPAW_API.runtimeconfig.json]: * Line 1,<br>
+Column 2 Syntax error: Malformed token<br>
+    + CategoryInfo          : NotSpecified: (A JSON parsing …Malformed token:String) [], RemoteException<br>
+    + FullyQualifiedErrorId : NativeCommandError</p>
+<p>Invalid runtimeconfig.json [C:\Users\Public\AYPAW\AYPAW_API.runtimeconfig.json]<br>
+[C:\Users\Public\AYPAW\AYPAW_API.runtimeconfig.dev.json]</p>
+<p>This config looks like<br>
+{<br>
+  “runtimeOptions”: {<br>
+    “configProperties”: {<br>
+      “System.GC.Server”: true<br>
+    }<br>
+  }<br>
+}</p>
+<p>Could somebody explain me what I doing wrong?</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-147682">
+				<div id="div-comment-147682" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/5f030b8c705cbc4910a50e78bc099b2e.png" srcset="https://secure.gravatar.com/avatar/5f030b8c705cbc4910a50e78bc099b2e?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Bartłomiej</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-147682">
+			July 22, 2018 at 6:51 pm</a>		</div>
+
+		<p>Dear Gunnar,<br>
+Have you ever try or, are you willing to try set up uwp app in windows 10 iot that use singalR CORE client and shoud connect and send data to ASP.NET CORE web app with signalR core hosted not on windows 10 iot but for example on pc in local network? I’am asking about it because I’m trying to do such think and when I lunch my uwp app on my pc (not on raspberrypi 3) every think works but when I lunch te same uwp app on windows iot 10 there is a HttpRequestExeption when I do<br>
+ await connection.StartAsync(); Any help? Any ideas?<br>
+Bartłomiej</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-147714">
+				<div id="div-comment-147714" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/c0e8a1646f3ae42c1c682afcf5707def.jpeg" srcset="https://secure.gravatar.com/avatar/c0e8a1646f3ae42c1c682afcf5707def?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="https://gunnarpeipman.com/" rel="external nofollow" class="url">Gunnar Peipman</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-147714">
+			July 23, 2018 at 9:48 pm</a>		</div>
+
+		<p>Hi!<br>
+Can you give me more details about exception you got?</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-148255">
+				<div id="div-comment-148255" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/5f030b8c705cbc4910a50e78bc099b2e.png" srcset="https://secure.gravatar.com/avatar/5f030b8c705cbc4910a50e78bc099b2e?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Bartłomiej</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-148255">
+			July 27, 2018 at 11:42 am</a>		</div>
+
+		<p>So apparently it was problem with localhost, because I launch service on azure and now my signalR core client from windows 10 IOT is connecting to server on azure</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-149515">
+				<div id="div-comment-149515" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/5f351a99b3b152fd96a772cae0209c61.png" srcset="https://secure.gravatar.com/avatar/5f351a99b3b152fd96a772cae0209c61?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Weston</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-149515">
+			August 9, 2018 at 2:09 pm</a>		</div>
+
+		<p>Gunnar, this is a great post, Thank you.</p>
+<p>I am new to WebSockets but am using your code to help develop a web-based control panel for a RaspberryPi collecting temperature data. I have a background task on the Pi collecting data and now am using your Read and Report Tasks from your sample to communicate settings and data to the webApp also on the Pi. Can you suggest a way to determine some sort of identifier of the Clients?  Perhaps in the WebSocketsMiddleWare point?  I would like to have the background task stop sending data to the webSocketsWebApp if there are no clients to the WebApp other than the RaspberryPi itself. I had also considered using an AppServiceConnection between the two background tasks so that only the WebApp Service could send commands to the other local data collection background task. Thank you in advance for your advice.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-151634">
+				<div id="div-comment-151634" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/25eee433086d6efb9de62ebbae7bfb5d.png" srcset="https://secure.gravatar.com/avatar/25eee433086d6efb9de62ebbae7bfb5d?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Andrew Simpson</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#comment-151634">
+			October 2, 2018 at 1:46 pm</a>		</div>
+
+		<p>Great article.</p>
+<p>I have been trying to sqlite db but ut fails.I am assuming that sqlite does not support arm compile?  Do you recommend another db i could use?</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		</ul>
+	
+	<p></p>
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://gunnarpeipman.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="3237" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d7b5c31926"></p><p style="display: none;"></p><p style="clear:both"><input style="width: 20px" type="checkbox" value="1" name="subscribe" id="subscribe">&nbsp;<label style="margin:0; padding:0; position:relative; left:0; top:0;" for="subscribe">Notify me when new comments are added.</label></p>			<input type="hidden" id="ak_js" name="ak_js" value="1543102525755"></form>
+			</div><!-- #respond -->
+	</div>
+			</div>
+		<div style="width:620px; height: 100px;">
+		<!-- PageBottom -->
+		<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3746700224102026" data-ad-slot="1693487142" data-ad-format="auto">
+		</ins>		
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>	
+		</div>
+			</article>
+	</div>
+<aside>
+			<div class="cols"><div class="widget col">		<h3>RECENT POSTS</h3>		<ul>
+											<li>
+					<a href="https://gunnarpeipman.com/aspnet/aspnet-core-content-web-root/">ASP.NET Core: Replacement for Server.MapPath</a>
+											<span class="post-date">November 12, 2018</span>
+									</li>
+											<li>
+					<a href="https://gunnarpeipman.com/aspnet/aspnet-core-exif-coordinates/">Reading GPS coordinates of photo on ASP.NET Core</a>
+											<span class="post-date">November 9, 2018</span>
+									</li>
+											<li>
+					<a href="https://gunnarpeipman.com/aspnet/offline-blazor-application/">Building offline Blazor application</a>
+											<span class="post-date">October 24, 2018</span>
+									</li>
+											<li>
+					<a href="https://gunnarpeipman.com/aspnet/server-side-blazor/">Server-side Blazor applications</a>
+											<span class="post-date">October 19, 2018</span>
+									</li>
+											<li>
+					<a href="https://gunnarpeipman.com/csharp/string-repeat/">String repeat method for C#</a>
+											<span class="post-date">July 24, 2018</span>
+									</li>
+					</ul>
+		</div><div class="widget col">			<div class="textwidget"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/gunnar-peipman.jpg" alt="" style="border:1px solid lightgrey"><br>
+<a href="https://feeds.feedburner.com/gunnarpeipman"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/rss.png" alt="Blog RSS"></a><a href="https://twitter.com/gpeipman"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/twitter(1).png" alt="Gunnar Peipman @ Twitter"></a><a href="https://www.linkedin.com/in/gpeipman"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/linkedin(1).png" alt="Gunnar Peipman @ LinkedIn"></a><a href="mailto:me@gunnarpeipman.com"><img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/email.png" alt=""></a><br>
+<img src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/mvp-250.png" alt="" style="margin-top:20px">
+</div>
+		</div><div class="widget col"><h3>Topics</h3>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://gunnarpeipman.com/net/">.NET</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="https://gunnarpeipman.com/architecture-design-patterns/">Architecture/Design/Patterns</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://gunnarpeipman.com/aspnet/">ASP.NET</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="https://gunnarpeipman.com/azure/">Azure</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="https://gunnarpeipman.com/books/">Books</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="https://gunnarpeipman.com/csharp/">C#</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="https://gunnarpeipman.com/community/">Community</a>
+</li>
+	<li class="cat-item cat-item-58"><a href="https://gunnarpeipman.com/data/">Data platform</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="https://gunnarpeipman.com/graphics/">Graphics</a>
+</li>
+	<li class="cat-item cat-item-31"><a href="https://gunnarpeipman.com/iis/">IIS</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="https://gunnarpeipman.com/iot/">IoT</a>
+</li>
+	<li class="cat-item cat-item-36"><a href="https://gunnarpeipman.com/javascript/">JavaScript</a>
+</li>
+	<li class="cat-item cat-item-46"><a href="https://gunnarpeipman.com/mobile/">Mobile</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="https://gunnarpeipman.com/office/">Office/Office 365</a>
+</li>
+	<li class="cat-item cat-item-45"><a href="https://gunnarpeipman.com/search2/">Search</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="https://gunnarpeipman.com/sharepoint/">SharePoint</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="https://gunnarpeipman.com/development/">Software development</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://gunnarpeipman.com/testing/">Testing</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="https://gunnarpeipman.com/tools/">Tools</a>
+</li>
+	<li class="cat-item cat-item-56"><a href="https://gunnarpeipman.com/uwp/">UWP</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="https://gunnarpeipman.com/various/">Various</a>
+</li>
+	<li class="cat-item cat-item-32"><a href="https://gunnarpeipman.com/visual-studio/">Visual Studio</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://gunnarpeipman.com/wcf/">WCF</a>
+</li>
+	<li class="cat-item cat-item-30"><a href="https://gunnarpeipman.com/windows/">Windows</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="https://gunnarpeipman.com/workflow/">Workflow</a>
+</li>
+		</ul>
+</div><div class="widget col">			<div class="textwidget"><!--script type="text/javascript" src="https://www.sharepointads.com/members/scripts/banner.php?a_aid=gpeipman&a_bid=6eea7a7c"></script-->
+
+<!--div id="p_1815269"></div><script async="async" data-cfasync="false" src="//native.propellerads.com/1?z=1815269&eid=p_1815269"></script--></div>
+		</div></div><div class="cols"><div class="widget"><h3>Archives</h3><ul><li><a href="https://gunnarpeipman.com/2018/" class="flexo-link" title="Year 2018 archives">2018 (58)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2018/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2018/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2017/" class="flexo-link" title="Year 2017 archives">2017 (73)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2017/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2017/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2016/" class="flexo-link" title="Year 2016 archives">2016 (34)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2016/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2016/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2015/" class="flexo-link" title="Year 2015 archives">2015 (9)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2015/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2015/02/">February</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2014/" class="flexo-link" title="Year 2014 archives">2014 (26)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2014/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2014/02/">February</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2013/" class="flexo-link" title="Year 2013 archives">2013 (70)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2013/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2013/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2012/" class="flexo-link" title="Year 2012 archives">2012 (33)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2012/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2012/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2011/" class="flexo-link" title="Year 2011 archives">2011 (64)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2011/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2011/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2010/" class="flexo-link" title="Year 2010 archives">2010 (144)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2010/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2010/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2009/" class="flexo-link" title="Year 2009 archives">2009 (160)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2009/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/02/">February</a></li>
+	<li><a href="https://gunnarpeipman.com/2009/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2008/" class="flexo-link" title="Year 2008 archives">2008 (57)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2008/12/">December</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/09/">September</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/08/">August</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/07/">July</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/06/">June</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/05/">May</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/04/">April</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/03/">March</a></li>
+	<li><a href="https://gunnarpeipman.com/2008/01/">January</a></li>
+</ul></li></ul><ul><li><a href="https://gunnarpeipman.com/2007/" class="flexo-link" title="Year 2007 archives">2007 (13)</a><ul class="flexo-list" style="display: none;">
+	<li><a href="https://gunnarpeipman.com/2007/11/">November</a></li>
+	<li><a href="https://gunnarpeipman.com/2007/10/">October</a></li>
+	<li><a href="https://gunnarpeipman.com/2007/09/">September</a></li>
+</ul></li></ul></div><div class="widget">			<div class="textwidget"><style>
+.main h3, .main h2 { clear:none; }
+nav ul.menu > li.page-item-47 ul.children { display:none; }
+.SPOSTARBUST-Related-Posts { float:left; max-width:400px; }
+.SPOSTARBUST-Related-Posts h3 { margin-top: 10px; }
+#ssba-classic-2, .ssba { width: 180px !important; padding-left:10px; }
+p.pagination { padding-top: 15px; }
+.searchform button span { display:none; }
+.ssba, .ssba a {font-size:22px;}
+footer div.widgets { display:none; }
+p.pagination {margin:0px; padding:0px;}
+p.pagination .prev,
+p.pagination .next
+{
+width:45%
+}
+p.pagination .next {text-align:right;}
+.engine {display:none}
+.wp-video { border: 1px solid black; text-align:center;}
+.no-border, .no-border td { border: none !important; }
+table.no-border {
+margin-top: -3px; margin-left: 10px;
+}
+.cntctfrm_one_column.cntctfrm_width_default {
+max-width:580px !important;
+}
+aside .post-date {
+display:block;
+clear:both;
+}
+</style>
+<div style="margin-left:50px;">
+<script type="text/javascript">
+  ( function() {
+    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+    var unit = {"calltype":"async[2]","publisher":"gpeipman1","width":160,"height":600,"sid":"Chitika Default"};
+    var placement_id = window.CHITIKA.units.length;
+    window.CHITIKA.units.push(unit);
+    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+}());
+</script><div id="chitikaAdBlock-0" class="chitikaAdContainer"><iframe class="chitikaAdBlock" frameborder="0" height="600" id="ch_ad0-0" marginheight="0" marginwidth="0" scrolling="no" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource(2).html" width="160" style="margin: 0px; padding: 0px;"></iframe></div>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/getads.js.descarga" async=""></script>
+</div></div>
+		</div></div></aside>	</div></section><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:NaNpx;margin:0;padding:0;position:relative;visibility:visible;width:NaNpx;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:NaNpx;margin:0;padding:0;position:relative;visibility:visible;width:NaNpx;background-color:transparent;"><iframe frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:NaNpx;height:NaNpx;" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource(3).html"></iframe></ins></ins></ins><iframe src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/portal.html" id="st_gdpr_iframe" style="width: 0px; height: 0px; position: absolute; left: -5000px;"></iframe>
+
+
+	<footer><div>
+	
+    	<div class="clearfix widgets">
+        	<div class="cols">
+				<div class="col">
+					<div class="widget">			<div class="textwidget"><!--p><a href="http://feeds.feedburner.com/gunnarpeipman"><img src="http://feeds.feedburner.com/~fc/gunnarpeipman?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></p--></div>
+		</div>				</div>
+				<div class="col">
+									</div>
+			</div>
+            <div class="cols">
+				<div class="col">
+									</div>
+				<div class="col">
+									</div>
+			</div>
+        </div>
+    
+		<div class="f-menu">
+			<ul class="menu"><li class="page_item page-item-1522"><a href="https://gunnarpeipman.com/bio/">Bio</a></li>
+<li class="page_item page-item-1508"><a href="https://gunnarpeipman.com/business/">Business</a></li>
+<li class="page_item page-item-47 page_item_has_children"><a href="https://gunnarpeipman.com/presentations/">Presentations</a>
+<ul class="children">
+	<li class="page_item page-item-1746"><a href="https://gunnarpeipman.com/presentations/working-with-legacy-code/">Working with Legacy Code</a></li>
+	<li class="page_item page-item-1900"><a href="https://gunnarpeipman.com/presentations/porting-asp-net-applications-to-windows-azure/">Porting ASP.NET applications to Windows Azure</a></li>
+	<li class="page_item page-item-1904"><a href="https://gunnarpeipman.com/presentations/building-saas-portals-on-asp-net-and-windows-azure/">Building SaaS portals on ASP.NET and Windows Azure</a></li>
+	<li class="page_item page-item-1987"><a href="https://gunnarpeipman.com/presentations/whats-new-in-asp-net-5/">What’s new in ASP.NET Core?</a></li>
+	<li class="page_item page-item-2133"><a href="https://gunnarpeipman.com/presentations/building-modern-cloud-applications-on-asp-net-5/">Building modern cloud applications on ASP.NET 5</a></li>
+	<li class="page_item page-item-2818"><a href="https://gunnarpeipman.com/presentations/aspnet-core-logging/">Deep-dive to ASP.NET Core Logging</a></li>
+	<li class="page_item page-item-2831"><a href="https://gunnarpeipman.com/presentations/aspnet-core-caching/">Deep-dive to ASP.NET Core caching</a></li>
+	<li class="page_item page-item-2917"><a href="https://gunnarpeipman.com/presentations/vision-api/">Working with Vision API Of Microsoft Cognitive Services</a></li>
+	<li class="page_item page-item-3152"><a href="https://gunnarpeipman.com/presentations/aspnet-core-multitenant/">Multitenant web applications with ASP.NET Core</a></li>
+	<li class="page_item page-item-3628"><a href="https://gunnarpeipman.com/presentations/csharp-7-deep-dive/">Deep dive to C# 7</a></li>
+	<li class="page_item page-item-1816"><a href="https://gunnarpeipman.com/presentations/architecting-asp-net-mvc-applications/">Architecting ASP.NET MVC applications</a></li>
+	<li class="page_item page-item-2479"><a href="https://gunnarpeipman.com/presentations/aspnet-core-linux/">Building ASP.NET Core applications on Linux</a></li>
+	<li class="page_item page-item-2490"><a href="https://gunnarpeipman.com/presentations/sharepoint-digital-signing/">Modern era digital signing on SharePoint</a></li>
+	<li class="page_item page-item-1969"><a href="https://gunnarpeipman.com/presentations/optimizing-public-facing-sharepoint-sites/">Optimizing public facing SharePoint sites</a></li>
+	<li class="page_item page-item-2190"><a href="https://gunnarpeipman.com/presentations/brewing-eisbock-with-raspberry-pi-and-windows-10-iot/">Presentation: Brewing Eisbock with Raspberry PI and Windows 10 IoT</a></li>
+	<li class="page_item page-item-2182"><a href="https://gunnarpeipman.com/presentations/deep-dive-to-application-insights/">Deep-Dive to Application Insights</a></li>
+	<li class="page_item page-item-2137"><a href="https://gunnarpeipman.com/presentations/deep-dive-to-azure-search/">Deep-Dive to Azure Search</a></li>
+</ul>
+</li>
+<li class="page_item page-item-1738"><a href="https://gunnarpeipman.com/schedule/">Schedule</a></li>
+<li class="page_item page-item-1516"><a href="https://gunnarpeipman.com/contact-me/">Contact me</a></li>
+</ul>		</div>
+		
+	</div></footer> 
+				<script type="text/javascript"><!--
+			var seriesdropdown = document.getElementById("orgseries_dropdown");
+			if (seriesdropdown) {
+			 function onSeriesChange() {
+					if ( seriesdropdown.options[seriesdropdown.selectedIndex].value != ( 0 || -1 ) ) {
+						location.href = "https://gunnarpeipman.com/series/"+seriesdropdown.options[seriesdropdown.selectedIndex].value;
+					}
+				}
+				seriesdropdown.onchange = onSeriesChange;
+			}
+			--></script>
+			<link rel="stylesheet" id="simple-share-buttons-adder-ssba-css" href="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/ssba.css" type="text/css" media="all">
+<style id="simple-share-buttons-adder-ssba-inline-css" type="text/css">
+	.ssba {
+									
+									
+									
+									-moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px;  border-radius: 10px; -o-border-radius: 10px;
+								}
+								.ssba img
+								{
+									width: 35px !important;
+									padding: 3px;
+									border:  0;
+									box-shadow: none !important;
+									display: inline !important;
+									vertical-align: middle;
+									box-sizing: unset;
+								}
+								
+								#ssba-classic-2 .ssbp-text {
+									display: none!important;
+								}
+								
+								.ssba .fb-save
+								{
+								padding: 3px;
+								line-height: 30px; }
+								.ssba, .ssba a
+								{
+									text-decoration:none;
+									background: none;
+									font-family: Indie Flower;
+									font-size: 22px;
+									
+									font-weight: bold;
+								}
+								.ssba {
+    width:190px;
+    float:right;
+    margin-top:15px;
+}
+.ssba a {
+    display:block;
+}
+.ssba img {
+    margin-bottom: 3px;
+    margin-top: 7px;
+}
+@font-face {
+				font-family: 'ssbp';
+				src:url('https://gunnarpeipman.com/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?xj3ol1');
+				src:url('https://gunnarpeipman.com/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
+					url('https://gunnarpeipman.com/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.woff?xj3ol1') format('woff'),
+					url('https://gunnarpeipman.com/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.ttf?xj3ol1') format('truetype'),
+					url('https://gunnarpeipman.com/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
+				font-weight: normal;
+				font-style: normal;
+
+				/* Better Font Rendering =========== */
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+</style>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/ssba.js.descarga"></script>
+<script type="text/javascript">
+Main.boot( [] );
+</script>
+<script type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/wp-embed.min.js.descarga"></script>
+<script async="async" type="text/javascript" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/form.js.descarga"></script>
+	<style>p span + br { display:none } div span + br { display:initial }</style>
+<script src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/MathJax.js.descarga" async=""></script>
+
+
+<!-- Dynamic page generated in 0.973 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2018-11-25 01:11:39 -->
+
+<!-- Compression = gzip --><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/afATJJjxKE6.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><iframe id="google_osd_static_frame_8190016824450" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource(4).html"></iframe></body><iframe id="google_shimpl" style="display: none;" src="./Running ASP.NET Core 2 applications on Windows 10 IoT Core_files/saved_resource(5).html"></iframe></html>

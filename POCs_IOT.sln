@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastia.IoT.Pocs.Web.HelloWorld", "Gastia.IoT.Pocs.Web.HelloWorld\Gastia.IoT.Pocs.Web.HelloWorld.csproj", "{AEF4848E-F2F4-4397-A420-3D91474A5328}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos", "Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos", "{3657CC4F-3B86-4D49-BE0E-612CF3BCCB8C}"
+	ProjectSection(SolutionItems) = preProject
+		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\asi es el comando para publicar!!!.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\asi es el comando para publicar!!!.png
+		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!! 01.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!! 01.png
+		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!!.png 02.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!!.png 02.png
+		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\Running ASP.NET Core 2 applications on Windows 10 IoT Core.html = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\Running ASP.NET Core 2 applications on Windows 10 IoT Core.html
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gastia.IoT.Pocs.Web.Camera", "Gastia.IoT.Pocs.Web.Camera\Gastia.IoT.Pocs.Web.Camera.csproj", "{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastia.IoT.Pocs.Web.Aspnetcore2webapp", "Gastia.IoT.Pocs.Web.Aspnetcore2webapp\Gastia.IoT.Pocs.Web.Aspnetcore2webapp.csproj", "{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|ARM.ActiveCfg = Debug|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|ARM.Build.0 = Debug|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|ARM.Deploy.0 = Debug|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x64.ActiveCfg = Debug|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x64.Build.0 = Debug|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x64.Deploy.0 = Debug|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x86.ActiveCfg = Debug|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x86.Build.0 = Debug|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Debug|x86.Deploy.0 = Debug|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|Any CPU.ActiveCfg = Release|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|ARM.ActiveCfg = Release|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|ARM.Build.0 = Release|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|ARM.Deploy.0 = Release|ARM
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x64.ActiveCfg = Release|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x64.Build.0 = Release|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x64.Deploy.0 = Release|x64
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x86.ActiveCfg = Release|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x86.Build.0 = Release|x86
+		{AEF4848E-F2F4-4397-A420-3D91474A5328}.Release|x86.Deploy.0 = Release|x86
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|x64.Build.0 = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Debug|x86.Build.0 = Debug|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|ARM.Build.0 = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|x64.ActiveCfg = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|x64.Build.0 = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|x86.ActiveCfg = Release|Any CPU
+		{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}.Release|x86.Build.0 = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|ARM.Build.0 = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|x64.Build.0 = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BD47CE3-278A-41FC-BCC6-24FA0C8A9886}
+	EndGlobalSection
+EndGlobal

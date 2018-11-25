@@ -1,0 +1,1 @@
+jQuery(document).ready(function(){jQuery('ul.flexo-list').hide();jQuery('a.flexo-link').click(function(){jQuery(this).next().slideToggle('fast');return false;});});
