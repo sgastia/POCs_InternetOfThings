@@ -20,11 +20,11 @@ namespace Gastia.IoT.Pocs.Web.HelloWorld
         private const uint MAX_TRIALS = 10;
         private const string PORT = "8081";
         private StreamSocketListener _listener;
-        public void Start()
+        public async Task Start()
         {
             _listener = new StreamSocketListener();
             _listener.ConnectionReceived += Listener_ConnectionReceived;
-            IAsyncAction action = _listener.BindServiceNameAsync(PORT);
+            await _listener.BindServiceNameAsync(PORT);
         }
 
         private async void Listener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
