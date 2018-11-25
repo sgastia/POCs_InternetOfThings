@@ -5,17 +5,9 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastia.IoT.Pocs.Web.HelloWorld", "Gastia.IoT.Pocs.Web.HelloWorld\Gastia.IoT.Pocs.Web.HelloWorld.csproj", "{AEF4848E-F2F4-4397-A420-3D91474A5328}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos", "Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos", "{3657CC4F-3B86-4D49-BE0E-612CF3BCCB8C}"
-	ProjectSection(SolutionItems) = preProject
-		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\asi es el comando para publicar!!!.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\asi es el comando para publicar!!!.png
-		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!! 01.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!! 01.png
-		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!!.png 02.png = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\desactivar despues de usar!!!!!.png 02.png
-		Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\Running ASP.NET Core 2 applications on Windows 10 IoT Core.html = Gastia.IoT.Pocs.Web.Aspnetcore2webapp_pasos\Running ASP.NET Core 2 applications on Windows 10 IoT Core.html
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gastia.IoT.Pocs.Web.Camera", "Gastia.IoT.Pocs.Web.Camera\Gastia.IoT.Pocs.Web.Camera.csproj", "{E1E75CA2-BECD-46ED-B0C4-655DF5962CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastia.IoT.Pocs.Web.Aspnetcore2webapp", "Gastia.IoT.Pocs.Web.Aspnetcore2webapp\Gastia.IoT.Pocs.Web.Aspnetcore2webapp.csproj", "{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gastia.IoT.Pocs.Web.Aspnetcore2webapp", "Gastia.IoT.Pocs.Web.Aspnetcore2webapp\Gastia.IoT.Pocs.Web.Aspnetcore2webapp.csproj", "{9F1BA4A6-FACA-44BD-8F20-C0E08649F816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
