@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Gastia.IoT.Pocs.Web.Camera.Models;
+using Gastia.IoT.Pocs.Web.Camera.Services;
 
 namespace Gastia.IoT.Pocs.Web.Camera.Controllers
 {
@@ -12,27 +13,17 @@ namespace Gastia.IoT.Pocs.Web.Camera.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            /*
+            CameraService mgr = new CameraService();
+            JsonResult devices = await mgr.EnumerateCameras();
+            return Ok(devices);
+            */
+
+            return View("~/Views/Home/Index.cshtml");
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

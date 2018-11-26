@@ -51,6 +51,7 @@ namespace Gastia.IoT.Pocs.Web.Camera
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseMiddleware<WebSocketsMiddleware>();
 
             app.UseMvc(routes =>
             {

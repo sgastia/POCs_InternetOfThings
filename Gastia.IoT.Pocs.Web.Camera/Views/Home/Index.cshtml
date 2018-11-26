@@ -1,10 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div>
-    Aca se deberia ver el video:
+<p>&nbsp;</p>
+<div class="row">
+    <a href="https://gunnarpeipman.com/iot/aspnet-core-windows-iot-websocket/">https://gunnarpeipman.com/iot/aspnet-core-windows-iot-websocket/</a>
     <br />
-    <div style="border-color:blue;border:dotted">
-        <video id='videoobj' width='400' height='400' type='video/mp4' src='some server path /GetSearchResults/" + id + "' />
+    <hr />
+    <br />
+    <input type="text" style="max-width:unset;width:100%;max-width:100%" id="MessageField" placeholder="type message and press enter" />
+    <br />
+    <div class="col-md-12" id="msgs">
     </div>
 </div>
+@section Scripts {
+    <script>$(function () {
+        var protocol = location.protocol === "https:" ? "wss:" : "ws:";
+        var wsUri = protocol + "//" + window.location.host;
+        $('#msgs').append(wsUri + '<br />');
+        var socket = new WebSocket(wsUri);
+        socket.onopen = e => {
+            console.log("socket opened", e);
+            $('#msgs').append("socket opened" + '<br />');
+        };
+
+        socket.onclose = function (e) {
+            console.log("socket closed", e);
+            $('#msgs').append("socket closed" + '<br />');
+        };
+
+        socket.onmessage = function (e) {
+            console.log(e);
+            $('#msgs').append(e.data + '<br />');
+            $('#msgs').append("Message received: " + e.data + '<br />');
+        };
+
+        socket.onerror = function (e) {
+            console.error(e.data);
+            $('#msgs').append("Error: " + e.data + '<br />');
+        };
+
+        $('#MessageField').keypress(function (e) {
+            if (e.which != 13) {
+                return;
+            }
+
+            e.preventDefault();
+
+            socket.send($('#MessageField').val());
+            $('#MessageField').val('');
+        });
+    });</script>
+}

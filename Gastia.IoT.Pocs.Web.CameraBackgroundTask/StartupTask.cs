@@ -12,13 +12,17 @@ using System.IO;
 using Windows.Devices.Enumeration;
 using Windows.Data.Json;
 
-// The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
+
 
 namespace Gastia.IoT.Pocs.Web.CameraBackgroundTask
 {
+    /// <summary>
+    /// https://gunnarpeipman.com/iot/aspnet-core-windows-iot-websocket/
+    /// </summary>
     public sealed class StartupTask : IBackgroundTask
     {
         private const string WebInterfaceUrl = "ws://localhost:5000/";
+        private const string COMMAND_GET_CAMERAS = "GetCameras";
 
         private bool _isClosing = false;
         private BackgroundTaskDeferral _deferral;
@@ -96,7 +100,7 @@ namespace Gastia.IoT.Pocs.Web.CameraBackgroundTask
 
                     if (fromSocket != null)
                     {
-                        if (fromSocket.Trim().ToLower() == "cameras")
+                        if (fromSocket.Trim().ToLower() == COMMAND_GET_CAMERAS)
                         {
                             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
                             //List<DeviceInformation> deviceList = new List<Windows.Devices.Enumeration.DeviceInformation>();
