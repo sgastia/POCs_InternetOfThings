@@ -7,47 +7,72 @@
     <br />
     <hr />
     <br />
-    <input type="text" style="max-width:unset;width:100%;max-width:100%" id="MessageField" placeholder="type message and press enter" />
+    <input type="text" style="max-width:unset;width:100%;max-width:100%" id="txtUri" placeholder="type uri and press enter" />
+    <br />
+    <input type="text" style="max-width:unset;width:100%;max-width:100%" id="txtMessageField" placeholder="type message and press enter" />
     <br />
     <div class="col-md-12" id="msgs">
     </div>
 </div>
 @section Scripts {
-    <script>$(function () {
-        var protocol = location.protocol === "https:" ? "wss:" : "ws:";
-        var wsUri = protocol + "//" + window.location.host;
-        $('#msgs').append(wsUri + '<br />');
-        var socket = new WebSocket(wsUri);
-        socket.onopen = e => {
-            console.log("socket opened", e);
-            $('#msgs').append("socket opened" + '<br />');
-        };
+    <script>
+        function connect(wsUri) {
+            $('#msgs').append("Connecting to: [ " + wsUri + ' ]<br />');
+            var socket = new WebSocket(wsUri);
+            socket.onopen = function() {
+                console.log("socket opened", e);
+                $('#msgs').append("socket opened" + '<br />');
+            };
 
-        socket.onclose = function (e) {
-            console.log("socket closed", e);
-            $('#msgs').append("socket closed" + '<br />');
-        };
+            socket.onclose = function (e) {
+                debugger;
+                console.log("socket closed", e);
+                $('#msgs').append("socket closed, code: " + e.code + ", reason: [" + e.reason + ']<br />');
+                $('#msgs').append("<a href='https://tools.ietf.org/html/rfc6455#section-11.7'>RFC 6455 11.7<a><br>");
+            };
 
-        socket.onmessage = function (e) {
-            console.log(e);
-            $('#msgs').append(e.data + '<br />');
-            $('#msgs').append("Message received: " + e.data + '<br />');
-        };
+            socket.onmessage = function (e) {
+                console.log(e);
+                $('#msgs').append(e.data + '<br />');
+                $('#msgs').append("Message received: " + e.data + '<br />');
+            };
 
-        socket.onerror = function (e) {
-            console.error(e.data);
-            $('#msgs').append("Error: " + e.data + '<br />');
-        };
+            socket.onerror = function (e) {
+                debugger;
+                console.error(e.data);
+                $('#msgs').append("Error: " + e.data + '<br />');
+                $('#msgs').append("Error: " + e + '<br />');
+            };
 
-        $('#MessageField').keypress(function (e) {
-            if (e.which != 13) {
-                return;
-            }
+        }
 
-            e.preventDefault();
+        $(function () {
+            var protocol = location.protocol === "https:" ? "wss:" : "ws:";
+            var wsUri = protocol + "//" + window.location.host;
 
-            socket.send($('#MessageField').val());
-            $('#MessageField').val('');
+            connect(wsUri);
+
+            $('#txtMessageField').keypress(function (e) {
+                if (e.which != 13) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                socket.send($('#txtMessageField').val());
+                $('#txtMessageField').val('');
+            });
+
+            $('#txtUri').keypress(function (e) {
+                if (e.which != 13) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                var uri = $('#txtUri').val();
+                connect(uri);
+            });
         });
-    });</script>
+    </script>
 }
