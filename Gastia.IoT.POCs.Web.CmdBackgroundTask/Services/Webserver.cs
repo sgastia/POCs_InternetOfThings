@@ -6,11 +6,13 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
 namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
 {
+    [Deprecated("Use: Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface.WebServer",DeprecationType.Deprecate,0)]
     internal class Webserver:IDisposable
     {
         private const uint BUFFER_SIZE = 8192;

@@ -5,7 +5,7 @@
 			
 			$(document).ready(function()
 			{
-				if (stationListJSON.length > 1)
+				if (modelJSON.length > 1)
 				{
 					$(".prevButton,.nextButton").addClass("enabled");
 				}

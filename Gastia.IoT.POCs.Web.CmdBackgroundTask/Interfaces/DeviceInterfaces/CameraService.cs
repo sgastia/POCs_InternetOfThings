@@ -13,12 +13,14 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
         {
             var devices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
             List<DeviceInformation> deviceList = new List<DeviceInformation>();
-            string ret = "'sequence':[";
+            string ret = "\"sequence\":[";
             if (devices.Count > 0)
             {
                 for (var i = 0; i < devices.Count; i++)
                 {
-                    ret += "{'cameraid':'"+devices[i].Name+"'},";
+                    ret += "{\"cameraid\":\""+devices[i].Name+"\"}";
+                    if (i < deviceList.Count - 1)
+                        ret += ",";
                     deviceList.Add(devices[i]);
                 }
 

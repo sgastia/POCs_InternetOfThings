@@ -1,4 +1,5 @@
 ﻿using Gastia.IoT.POCs.Web.CmdBackgroundTask.Managers;
+using Gastia.IoT.POCs.Web.CmdBackgroundTask.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,11 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         private int port = 8000;
         private readonly StreamSocketListener listener;
         private WebHelper helper;
-        
+        private Commander _commander;
+        private StartupTask _startupTask;
+
+        private static int calls = 0;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -27,6 +32,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         internal WebServer(int serverPort)
         {
             helper = new WebHelper();
+            _commander = new Commander();
             listener = new StreamSocketListener();
             port = serverPort;
             listener.ConnectionReceived += (s, e) =>
@@ -243,20 +249,14 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         private async Task<string> GeneratePageHtml(string requestedPage)
         {
             string html = await helper.GeneratePage(requestedPage);
-            StringBuilder list = new StringBuilder(@"[");
-            string deviceFormat = "{{ \"name\":\"{0}\" , \"kind\":\"{1}\", \"enabled\":\"{2}\" }}";
-            DeviceInformationCollection devices = await DeviceInformation.FindAllAsync();
-            foreach (var device in devices)
-            {
-                if (list.Length > 10)
-                {
-                    list.Append(",");
-                }
-                list.Append(string.Format(deviceFormat, device.Name, device.Kind,device.IsEnabled));
-            }
-
-            list.Append(" ]");
-            html = html.Replace("#stationListJSON#", list.ToString());
+            StringBuilder responseContent = new StringBuilder(@"{");
+            responseContent.Append("\"calls\":" + calls + ",");
+            calls = calls + 1;
+            responseContent.Append($"\"time\":\"{ DateTime.Now.ToString()}\",");
+            responseContent.Append("response:");
+            responseContent.Append(_commander.Process(new StringBuilder("cameras")));
+            responseContent.Append("}");
+            html = html.Replace("#modelJSON#", responseContent.ToString());
             return html;
         }
 

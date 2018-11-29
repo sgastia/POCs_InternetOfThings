@@ -10,21 +10,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript">
-			var stationListJSON = '#stationListJSON#';
+			var modelJSON = '#modelJSON#';
 			var currentStation = '#currentTrack#';
 			function PopulateStationList () {
-				$(JSON.parse(stationListJSON)).each(function() {  
-                    $("#stationList").append(
-                        "<div class='row" + ((this.name == currentStation) ? " selected" : "") + "'>" +
-	         			    "<div class='station' style='float:left'>" +
-		         			    "<a href='settings.htm?trackAction=track&trackName=" + this.name + "' title='" + this.kind + "'>" + this.name + "</a>" +
-	 					    "</div>" +
-	         			    "<div class='stationUpdate radioButton enabled'>" +
-		         			    "<a href='addstation.htm?trackName=" + this.name + "' kind='UpdateTrack'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>" +
-	 					    "</div>" +
-         			    "</div>");								
-				});
+				//$(JSON.parse(modelJSON)).????
+                $("#stationList").append(
+                    "<div>" +
+                    modelJSON +
+                    "</div>");								
 			}
+			
 			
 			$(document).ready(function()
 			{

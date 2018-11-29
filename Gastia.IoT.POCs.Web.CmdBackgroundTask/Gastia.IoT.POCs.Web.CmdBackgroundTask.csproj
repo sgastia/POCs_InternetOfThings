@@ -99,8 +99,8 @@
     <Compile Include="Interfaces\HttpInterface\WebHelper.cs" />
     <Compile Include="Interfaces\HttpInterface\WebServer.cs" />
     <Compile Include="Managers\TelemetryManager.cs" />
-    <Compile Include="Services\CameraService.cs" />
-    <Compile Include="Services\Commander.cs" />
+    <Compile Include="Interfaces\DeviceInterfaces\CameraService.cs" />
+    <Compile Include="Interfaces\Commander.cs" />
     <Compile Include="Services\Webserver.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -209,9 +209,7 @@
       <Version>6.2.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\DeviceInterfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
