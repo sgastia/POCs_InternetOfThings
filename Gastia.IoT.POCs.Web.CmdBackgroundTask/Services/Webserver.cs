@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -32,11 +33,24 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
         public async Task Start()
         {
             _listener = new StreamSocketListener();
-            _listener.ConnectionReceived += Listener_ConnectionReceived;
+            _listener.Control.KeepAlive = true;
+            _listener.Control.NoDelay = true;
+            _listener.ConnectionReceived += (sender, args) =>
+            {
+                try
+                {
+                    // Process incoming request
+                    ProcessRequestAsync(sender,args);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception in StreamSocketListener.ConnectionReceived(): " + ex.Message);
+                }
+            };
             await _listener.BindServiceNameAsync(this._port);
         }
 
-        private async void Listener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        private async void ProcessRequestAsync(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
             DataReader reader = new DataReader(args.Socket.InputStream);
             while(true)
@@ -50,6 +64,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
                     StringBuilder request = await ReadRequest(args.Socket.InputStream);//https://sandervandevelde.wordpress.com/2016/04/08/building-a-windows-10-iot-core-background-webserver/
                     StringBuilder responseContent = new StringBuilder();
                     responseContent.Append("{'calls':" + calls + ",");
+                    responseContent.Append($"'time':'{ DateTime.Now.ToString()}'");
                     responseContent.Append("response:");
                     responseContent.Append(_commander.Process(request));
                     responseContent.Append("}");
