@@ -15,8 +15,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         public static string DEFAULT_PAGE = "default.htm";
         public static string HOME_PAGE = "home.htm";
         public static string SETTINGS_PAGE = "settings.htm";
-        public static string ADDSTATION_PAGE = "addstation.htm";
-        public static string ADDSTATIONSET_PAGE = "addstationset.htm";
+        public static string TITLE="POCs Windows 10 IoT";
     }
 }
 

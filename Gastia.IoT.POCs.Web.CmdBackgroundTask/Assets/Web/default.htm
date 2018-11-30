@@ -1,64 +1,48 @@
 ﻿<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<link rel="Stylesheet" href='http://ms-iot.github.io/content/css/bootstrap.css' />
-		<link rel="Stylesheet" href="css/common.css" />
-		<link rel="Stylesheet" href="css/slider.css" />
-		<link rel="Stylesheet" href='css/radio.css' />
-	  <title> Internet Radio - Main Page </title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript">
-			var modelJSON = '#modelJSON#';
-			var currentStation = '#currentTrack#';
-			function PopulateStationList () {
-				//$(JSON.parse(modelJSON)).????
-                $("#stationList").append(
-                    "<div>" +
-                    modelJSON +
-                    "</div>");								
-			}
-			
-			
-			$(document).ready(function()
-			{
-				$("#javascriptWarn").hide();
-				PopulateStationList();					
-			});
-		</script>
-		#head#
-  </head>
-  <body>
+<head>
+    <meta charset="utf-8">
+    <link rel="Stylesheet" href='http://ms-iot.github.io/content/css/bootstrap.css' />
+    <link rel="Stylesheet" href="css/common.css" />
+    <link rel="Stylesheet" href="css/slider.css" />
+    <link rel="Stylesheet" href='css/radio.css' />
+    <title> POCs Windows 10 IoT </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        var modelJSON = '#modelJSON#';
+        function PopulateJsonData() {
+            $("#jsonData").html("Hello World");
+        }
+        $(document).ready(function () {
+            $("#javascriptWarn").hide();
+            Populate();
+        });
+    </script>
+    #head#
+</head>
+<body>
     <div class='main'>
-      <div class='container'>
-        <div class='row'>
-          <div class='col-md-12 headerbar'>
-            #title#
-          </div>
+        <div class='container'>
+            <div id="title" class="row">
+                #title#
+            </div>
+            <div id="actions" class="row">
+                <input type="button" value="Initialize camera" onclick="location.href='/devices/camera/initialize'" />
+                <br />
+                <input type="button" value="Take photo" onclick="location.href='/devices/camera/takesnapshot'" />
+                <img src="#image#" />
+            </div>
+            <div class='row'>
+                <div id="jsonData" >
+                </div>
+            </div>
+            <div class='row'>
+                <div id='javascriptWarn' class='col-md-offset-3 col-md-6 center'>
+                    Enable Javascript for this page to function properly.
+                </div>
+            </div>
         </div>
-        <div class='row'>
-                  
-          <div name="stationList" id="stationList" class='col-md-4 listpane'>
-            <div class='row action'>
-              <a href='addstation.htm'> + Add Station </a>
-            </div>            
-          </div>
-          
-          <div class='col-md-8 mainpane'>
-          	<div class='row'>
-	          	<div id='javascriptWarn' class='col-md-offset-3 col-md-6 center'>
-	          		Enable Javascript for this page to function properly.
-	          	</div>
-          	</div>
-          	<div class='row'>
-	          	<div class='col-md-12 content'>
-		          	#content#
-	          	</div>
-          	</div>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>

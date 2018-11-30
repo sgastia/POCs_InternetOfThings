@@ -95,6 +95,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\DeviceInterfaces\Webcam.cs" />
     <Compile Include="Interfaces\HttpInterface\NavConstants.cs" />
     <Compile Include="Interfaces\HttpInterface\WebHelper.cs" />
     <Compile Include="Interfaces\HttpInterface\WebServer.cs" />

@@ -1,4 +1,5 @@
-﻿using Gastia.IoT.POCs.Web.CmdBackgroundTask.Managers;
+﻿using Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces;
+using Gastia.IoT.POCs.Web.CmdBackgroundTask.Managers;
 using Gastia.IoT.POCs.Web.CmdBackgroundTask.Services;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         private WebHelper helper;
         private Commander _commander;
         private StartupTask _startupTask;
+
+        private static readonly Webcam webcam = new Webcam();
 
         private static int calls = 0;
 
@@ -151,18 +154,35 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                     await WebHelper.WriteToStream(html, os);
 
                 }
-                // Request for the settings page
-                else if (request.Contains(NavConstants.SETTINGS_PAGE))
+                
+                else if (request.Contains(NavConstants.SETTINGS_PAGE))// Request for the settings page
                 {
-                    if (!string.IsNullOrEmpty(request))
-                    {
-                        //
-                    }
                     //handle UI interaction
                     await redirectToPage(NavConstants.HOME_PAGE, os);
                 }
-                // Request for a file that is in the Assets\Web folder (e.g. logo, css file)
-                else
+                else if(request.Contains("/devices/camera/initialize"))
+                {
+                    string html = await GeneratePageHtml(NavConstants.HOME_PAGE);
+                    string ret = await webcam.InitVideo();
+                    html = html.Replace("#modelJSON#",ret);
+                    await WebHelper.WriteToStream(html, os);
+
+                    
+                }
+                else if (request.Contains("/devices/camera/takesnapshot"))
+                {
+                    string imageSrc = await webcam.TakePhoto();
+                    /*
+                    string html = await GeneratePageHtml(NavConstants.HOME_PAGE);
+                    html.Replace("#modelJSON#", imageSrc);
+                    html.Replace("#image#", imageSrc);
+                    */
+                    string serverName = "<server>";
+                    imageSrc = imageSrc.Replace("C:", @"\\" + serverName + "\\c$");//Igual, esto no sirve, tira error: Not allowed to load local resource: file://<imageSrc>
+                    string html = "<html><head></head><body>Image:<br><img src='" + imageSrc + "'/></body></html>";
+                    await WebHelper.WriteToStream(html, os);
+                }
+                else// Request for a file that is in the Assets\Web folder (e.g. logo, css file)
                 {
                     using (Stream resp = os.AsStreamForWrite())
                     {

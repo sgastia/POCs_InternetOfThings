@@ -36,6 +36,7 @@
     <uap:Capability Name="videosLibrary" />
     <uap:Capability Name="objects3D" />
     <uap:Capability Name="musicLibrary" />
+    <uap:Capability Name="picturesLibrary" />
     <DeviceCapability Name="webcam" />
     <DeviceCapability Name="microphone" />
   </Capabilities>

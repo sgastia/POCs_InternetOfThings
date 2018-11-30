@@ -94,7 +94,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                     htmlHead = await FileIO.ReadTextAsync(file);
                 }
 
-                this.htmlTemplates.Add(page, GeneratePage("Internet Radio", pageName, htmlBody, htmlHead));
+                this.htmlTemplates.Add(page, GeneratePage(NavConstants.TITLE, pageName, htmlBody, htmlHead));
             }
         }
 

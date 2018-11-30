@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Media.Capture;
+using Windows.Media.MediaProperties;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
 {
     internal class CameraService
     {
+        
+
         internal async Task<string> GetAllCameras()
         {
             var devices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
@@ -28,5 +35,8 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Services
             ret += "]";
             return ret;
         }
+
+
+        
     }
 }
