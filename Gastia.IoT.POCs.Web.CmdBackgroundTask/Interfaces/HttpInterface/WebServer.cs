@@ -10,7 +10,10 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
+using Windows.Storage;
 using Windows.Storage.Streams;
 
 namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
@@ -18,7 +21,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
     internal class WebServer
     {
         private const uint BufferSize = 8192;
-        private int _port = 8000;
+        private static int _port = 8000;
         private readonly StreamSocketListener _listener;
         private WebApiHelper _webApiHelper;
         private WebHelper _webhelper;
@@ -61,6 +64,8 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                 }
             };
         }
+
+        
 
         public async void StartServer()
         {
@@ -169,59 +174,46 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                 {
                     using (Stream resp = os.AsStreamForWrite())
                     {
-                        bool exists = true;
-                        try
-                        {
-                            var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-
-                            // Map the requested path to Assets\Web folder
-                            string filePath = NavConstants.ASSETSWEB + requestUri.Replace('/', '\\');
-
-                            // Open the file and write it to the stream
-                            using (Stream fs = await folder.OpenStreamForReadAsync(filePath))
-                            {
-                                string contentType = "";
-                                if (requestUri.Contains(".css"))
-                                {
-                                    contentType = "Content-Type: text/css\r\n";
-                                }
-                                if (requestUri.Contains(".htm"))
-                                {
-                                    contentType = "Content-Type: text/html\r\n";
-                                }
-                                if(requestUri.Contains(".js"))
-                                {
-                                    contentType = "Content-Type: application/javascript";
-                                }
-                                    
-                                string header = String.Format("HTTP/1.1 200 OK\r\n" +
-                                                "Content-Length: {0}\r\n{1}" +
-                                                "Connection: close\r\n\r\n",
-                                                fs.Length,
-                                                contentType);
-                                byte[] headerArray = Encoding.UTF8.GetBytes(header);
-                                await resp.WriteAsync(headerArray, 0, headerArray.Length);
-                                await fs.CopyToAsync(resp);
-                            }
-                        }
-                        catch (FileNotFoundException ex)
-                        {
-                            exists = false;
-
-                            // Log telemetry event about this exception
-                            var events = new Dictionary<string, string> { { "WebServer", ex.Message } };
-                            TelemetryManager.WriteTelemetryEvent("FailedToOpenStream", events);
-                        }
-
-                        // Send 404 not found if can't find file
+                        // Map the requested path to Assets\Web folder
+                        StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(NavConstants.ASSETSWEB);
+                        bool exists = await RetrieveFile(requestUri, folder, resp);
                         if (!exists)
                         {
-                            byte[] headerArray = Encoding.UTF8.GetBytes(
-                                                  "HTTP/1.1 404 Not Found\r\n" +
-                                                  "Content-Length:0\r\n" +
-                                                  "Connection: close\r\n\r\n");
-                            await resp.WriteAsync(headerArray, 0, headerArray.Length);
+                            if (requestUri.Contains(NavConstants.TEMP_FOLDER))
+                            {
+                                folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+                                exists = await RetrieveFile(requestUri, folder, resp);
+                                if (!exists)
+                                {
+                                    // Send 404 not found if can't find file
+                                    byte[] headerArray = Encoding.UTF8.GetBytes("HTTP/1.1 404 Not Found\r\nContent-Length:0\r\nConnection: close\r\n\r\n");
+                                    await resp.WriteAsync(headerArray, 0, headerArray.Length);
+
+                                }
+                            }
+                            else
+                            {
+
+                                if (requestUri.Contains("favicon.ico"))//https://en.wikipedia.org/wiki/Favicon
+                                {
+                                    folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(NavConstants.ASSETSWEB);
+                                    exists = await RetrieveFile(requestUri, folder, resp);
+                                    if(!exists)
+                                    {
+                                        // Send 404 not found if can't find file
+                                        byte[] headerArray = Encoding.UTF8.GetBytes("HTTP/1.1 404 Not Found\r\nContent-Length:0\r\nConnection: close\r\n\r\n");
+                                        await resp.WriteAsync(headerArray, 0, headerArray.Length);
+                                    }
+                                }
+                                else
+                                {
+                                    //It raise warning message because web request shouldn't access to root installed folder
+                                    byte[] headerArray = Encoding.UTF8.GetBytes("HTTP/1.1 403 Forbidden\r\nContent-Length:0\r\nConnection: close\r\n\r\n");
+                                    await resp.WriteAsync(headerArray, 0, headerArray.Length);
+                                }
+                            }
                         }
+                        
 
                         await resp.FlushAsync();
                     }
@@ -247,6 +239,77 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                     TelemetryManager.WriteTelemetryException(e);
                 }
             }
+        }
+
+        private async Task<bool> RetrieveFile(string requestUri, StorageFolder folder, Stream resp)
+        {
+            bool exists =false;
+            try
+            {
+                string filePath = requestUri.Replace('/', '\\').Replace("%20"," ");
+
+                // Open the file and write it to the stream
+                using (Stream fs = await folder.OpenStreamForReadAsync(filePath))
+                {
+                    string contentType = "";
+                    //https://developer.mozilla.org/es/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+                    if (requestUri.Contains(".css"))
+                    {
+                        contentType = "Content-Type: text/css\r\n";
+                    }
+                    else if (requestUri.Contains(".htm"))
+                    {
+                        contentType = "Content-Type: text/html\r\n";
+                    }
+                    else if (requestUri.Contains(".js"))
+                    {
+                        contentType = "Content-Type: application/javascript\r\n";
+                    }
+                    else if(requestUri.Contains(".jpg") || requestUri.Contains(".png") || requestUri.Contains(".gif") || requestUri.Contains(".ico"))//image
+                    {
+                        contentType = "Content-Type: image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp, image/ico\r\n";
+                    }
+                    else if(requestUri.Contains(".mp4"))//video
+                    {
+                        contentType = "Content-Type: video/mp4\r\n";
+                    }
+                    else if(requestUri.Contains(".mp3"))//audio
+                    {
+
+                        contentType = "Content-Type: audio/mp3, audio/midi, audio/mpeg, audio/webm, audio/ogg, audio/wav\r\n";
+                    }
+                    
+                    else
+                    {
+                        //unknown content type or not implemented yet
+                        return false;
+                    }
+
+
+                    string header = String.Format("HTTP/1.1 200 OK\r\n" +
+                                    "Content-Length: {0}\r\n{1}" +
+                                    "Connection: close\r\n\r\n",
+                                    fs.Length,
+                                    contentType);
+                    byte[] headerArray = Encoding.UTF8.GetBytes(header);
+                    await resp.WriteAsync(headerArray, 0, headerArray.Length);
+                    await fs.CopyToAsync(resp);
+
+                    exists = true;
+                }
+
+            }
+            catch (FileNotFoundException ex)
+            {
+                exists = false;
+
+                // Log telemetry event about this exception
+                var events = new Dictionary<string, string> { { "WebServer", ex.Message } };
+                TelemetryManager.WriteTelemetryEvent("FailedToOpenStream", events);
+            }
+
+            
+            return exists;
         }
 
         /// <summary>
@@ -278,6 +341,13 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                 await resp.WriteAsync(headerArray, 0, headerArray.Length);
                 await resp.FlushAsync();
             }
+        }
+
+        internal static string GetServerWebAddress()
+        {
+            var hostNames = NetworkInformation.GetHostNames();
+            var hostName = hostNames.FirstOrDefault(name => name.Type == HostNameType.DomainName);
+            return hostName.RawName + ":" + _port;
         }
     }
 }

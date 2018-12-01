@@ -1,8 +1,9 @@
 'use strict';
 
-const MAX_ROWS = 10;
+var MAX_ROWS = 10;
 
-var iotApp = angular.module('iotApp', ['angularSimplePagination']);
+//var iotApp = angular.module('iotApp', ['angularSimplePagination']);
+var iotApp = angular.module('iotApp',[]);
 
 iotApp.service('iotServices', ['$http', iotServices]);
 

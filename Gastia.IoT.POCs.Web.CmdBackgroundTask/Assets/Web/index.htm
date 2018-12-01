@@ -9,7 +9,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="scripts/angular-simple-pagination.js"></script>
+    <!--<script src="scripts/angular-simple-pagination.js"></script>-->
     <script src="scripts/indexCtrl.js"></script>
     <script src="scripts/services.js"></script>
 
@@ -46,7 +46,7 @@
             </section>
         </main>
         <main class="container">
-            <img id="photo" />
+            <img id="imgPhoto" ng-src="{{model.photoPath}}"/>
             <br />
             <video id="video" />
         </main>

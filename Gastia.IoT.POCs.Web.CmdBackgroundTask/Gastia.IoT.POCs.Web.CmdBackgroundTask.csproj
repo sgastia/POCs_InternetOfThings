@@ -110,6 +110,9 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Assets\Web\css\bootstrap.min.css.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Gastia.IoT.POCs.Web.CmdBackgroundTask_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +147,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Web\error.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Web\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Web\img\gnomo.png">
@@ -212,6 +218,9 @@
     </Content>
     <Content Include="Assets\Wide310x150Logo.scale-200.png">
       <InProject>false</InProject>
+    </Content>
+    <Content Include="tempfiles\photo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

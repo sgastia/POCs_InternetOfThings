@@ -8,6 +8,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
 {
     struct NavConstants
     {
+        public static string TEMP_FOLDER = @"tempfiles";
         public static string ASSETSWEB = @"\Assets\Web";
         public static string DEFAULT_PAGE = "default.htm";
         public static string ERROR_PAGE = "error.htm";

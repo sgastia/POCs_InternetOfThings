@@ -17,7 +17,12 @@ function indexCtrl($scope, serv) {
 
     $scope.take_snapshot = function () {
         serv.takeSnapshot(
-            function (data) { $scope.model.message = "Snapshot: " + data; },
+            function (response) 
+            { 
+                $scope.model.message = "Snapshot: " + response.data; 
+                var objData = angular.fromJson(response.data);
+                $scope.model.photoPath = objData.photoPath;
+            },
             function (error) { $scope.model.message = "Error snapshot: " + error; }
         );
     }
@@ -35,6 +40,7 @@ function indexCtrl($scope, serv) {
     }
     ///////////////////////////////////////////
     //Paging
+    /*
     var setPaging = function (currentPage) {
         $scope.pagingSettings = {
             currentPage: currentPage,
@@ -44,5 +50,5 @@ function indexCtrl($scope, serv) {
         };
     }
     setPaging(0);
-
+    */
 }

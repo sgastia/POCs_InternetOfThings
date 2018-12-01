@@ -92,11 +92,13 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         /// 'Take Photo' button click action function
         /// Capture image to a file in the default account photos folder
         /// </summary>
-        public async Task<string> TakePhoto()
+        /// <param name="folder"></param>
+        /// <returns>The physical path of the taken photo</returns>
+        public async Task<string> TakePhoto(StorageFolder folder)
         {
             try
             {
-                photoFile = await KnownFolders.PicturesLibrary.CreateFileAsync(PHOTO_FILE_NAME, CreationCollisionOption.GenerateUniqueName);
+                photoFile = await folder.CreateFileAsync(PHOTO_FILE_NAME, CreationCollisionOption.GenerateUniqueName);
                 ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
                 await mediaCapture.CapturePhotoToStorageFileAsync(imageProperties, photoFile);
                 Debug.WriteLine("Take Photo succeeded: " + photoFile.Path);
@@ -104,7 +106,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
                 //IRandomAccessStream photoStream = await photoFile.OpenReadAsync();
                 //Falta ver si esto sirve para la web tambien
 
-                return photoFile.Path;
+                return photoFile.Name;
             }
             catch (Exception ex)
             {

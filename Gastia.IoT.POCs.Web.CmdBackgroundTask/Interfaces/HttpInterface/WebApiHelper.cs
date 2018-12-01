@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
 {
@@ -30,10 +31,10 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
             }
             else if (requestUri == URL_TAKE_SNAPSHOT)
             {
-                JsonMessage<string> msg = new JsonMessage<string>();
-                msg.Ok = true;
-                msg.Content = await _webcam.TakePhoto();
-                return msg.Stringify();
+                StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(NavConstants.TEMP_FOLDER);
+                string name = await _webcam.TakePhoto(folder);
+                string webaddress = WebServer.GetServerWebAddress();
+                return "{\"photoPath\":\"http://" + webaddress + "/" + NavConstants.TEMP_FOLDER + "/" + name + "\"}";
             }
             else if (requestUri == URL_START_VIDEO_RECORDING)
             {
