@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="iotApp">
+<head>
+    <meta charset="UTF-8">
+    <title>{{Title}}</title>
+    <link rel="stylesheet" href="css/angular-simple-pagination.css" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/global.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="scripts/angular-simple-pagination.js"></script>
+    <script src="scripts/indexCtrl.js"></script>
+    <script src="scripts/services.js"></script>
+
+
+</head>
+<body>
+    <script src="scripts/app.js"></script>
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">
+                <img src="/img/gnomo.png" width="50" height="50" class="d-inline-block align-top border-rounded" alt="gnomo">
+                <span class="navbar-text"> Windows 10 IoT - POCs  </span>
+            </a>
+        </nav>
+    </header>
+    <form name="myForm" ng-controller="indexCtrl">
+        <main class="container">
+            <section class="col">
+                <!-- Buttons -->
+                <div class="d-inline">
+                    <div class="input-group p-2">
+                        <button type="button" class="btn btn-primary" ng-click="initalize_camera()" value="Clear">Initialize camera</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" ng-click="take_snapshot()" value="Clear">Take snapshot</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" ng-click="initVideoRecording()" value="Clear">Start recording</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" ng-click="stopVideoRecording()" value="Clear">Stop recording</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" ng-click="liveVideo()" value="Clear">Live Video</button>
+                    </div>
+                    <div>{{ model.message }}</div>
+                </div>
+            </section>
+        </main>
+        <main class="container">
+            <img id="photo" />
+            <br />
+            <video id="video" />
+        </main>
+    </form>
+</body>
+</html>

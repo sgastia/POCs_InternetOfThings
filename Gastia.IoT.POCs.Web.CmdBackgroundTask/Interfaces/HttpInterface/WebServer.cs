@@ -18,9 +18,10 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
     internal class WebServer
     {
         private const uint BufferSize = 8192;
-        private int port = 8000;
-        private readonly StreamSocketListener listener;
-        private WebHelper helper;
+        private int _port = 8000;
+        private readonly StreamSocketListener _listener;
+        private WebApiHelper _webApiHelper;
+        private WebHelper _webhelper;
         private Commander _commander;
         private StartupTask _startupTask;
 
@@ -34,11 +35,12 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         /// <param name="serverPort">Port to start server on</param>
         internal WebServer(int serverPort)
         {
-            helper = new WebHelper();
+            _webhelper = new WebHelper();
             _commander = new Commander();
-            listener = new StreamSocketListener();
-            port = serverPort;
-            listener.ConnectionReceived += (s, e) =>
+            _listener = new StreamSocketListener();
+            _webApiHelper = new WebApiHelper();
+            _port = serverPort;
+            _listener.ConnectionReceived += (s, e) =>
             {
                 try
                 {
@@ -56,10 +58,10 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         {
             try
             {
-                await helper.InitializeAsync();
+                await _webhelper.InitializeAsync();
 
 #pragma warning disable CS4014
-                listener.BindServiceNameAsync(port.ToString());
+                _listener.BindServiceNameAsync(_port.ToString());
 #pragma warning restore CS4014
             }
             catch(Exception ex)
@@ -70,7 +72,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
 
         public void Dispose()
         {
-            listener.Dispose();
+            _listener.Dispose();
         }
 
         /// <summary>
@@ -107,13 +109,13 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                     if (requestMethodParts[0].ToUpper() == "GET")
                     {
                         Debug.WriteLine("request for: {0}", requestMethodParts[1]);
-                        await writeResponseAsync(requestMethodParts[1], output, socket.Information);
+                        await WriteResponseAsync(requestMethodParts[1], output, socket.Information);
                     }
                     else if (requestMethodParts[0].ToUpper() == "POST")
                     {
                         string requestUri = string.Format("{0}?{1}", requestMethodParts[1], requestParts[requestParts.Length - 1]);
                         Debug.WriteLine("POST request for: {0} ", requestUri);
-                        await writeResponseAsync(requestUri, output, socket.Information);
+                        await WriteResponseAsync(requestUri, output, socket.Information);
                     }
                     else
                     {
@@ -127,60 +129,33 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
             }
         }
 
-        private async Task writeResponseAsync(string request, IOutputStream os, StreamSocketInformation socketInfo)
+        private async Task WriteResponseAsync(string requestUri, IOutputStream os, StreamSocketInformation socketInfo)
         {
             try
             {
-                request = request.TrimEnd('\0'); //remove possible null from POST request
+                requestUri = requestUri.TrimEnd('\0'); //remove possible null from POST request
 
-                string[] requestParts = request.Split('/');
+                string[] uriParts = requestUri.Split('/');
 
-                // Request for the root page, so redirect to home page
-                if (request.Equals("/"))
-                {
-                    await redirectToPage(NavConstants.HOME_PAGE, os);
-                }
-                // Request for the home page
-                else if (request.Contains(NavConstants.HOME_PAGE))
-                {
-                    // Generate the default config page
-                    string html = await GeneratePageHtml(NavConstants.HOME_PAGE);
-                    //string onState = (this.playbackManager.PlaybackState == PlaybackState.Playing) ? "On" : "Off";
-
-                    html = html.Replace("#onState#", "[onState]");
-                    //html = html.Replace("#radioVolume#", (this.playbackManager.Volume * 100).ToString());
-                    //html = html.Replace("#currentTrack#", this.playlistManager.CurrentTrack.Name);
-
-                    await WebHelper.WriteToStream(html, os);
-
-                }
                 
-                else if (request.Contains(NavConstants.SETTINGS_PAGE))// Request for the settings page
+                if (requestUri == "/") 
                 {
-                    //handle UI interaction
+                    // Request for the root page, so redirect to home page
                     await redirectToPage(NavConstants.HOME_PAGE, os);
+                    return;
                 }
-                else if(request.Contains("/devices/camera/initialize"))
+                else if (uriParts[1].ToLower().Contains("home") || uriParts[1].ToLower().Contains("index") || uriParts[1].ToLower().Contains("default"))
                 {
+                    // Request for the home page
                     string html = await GeneratePageHtml(NavConstants.HOME_PAGE);
-                    string ret = await webcam.InitVideo();
-                    html = html.Replace("#modelJSON#",ret);
                     await WebHelper.WriteToStream(html, os);
-
-                    
+                    return;
                 }
-                else if (request.Contains("/devices/camera/takesnapshot"))
+                else if (uriParts[1].ToLower() == "api")
                 {
-                    string imageSrc = await webcam.TakePhoto();
-                    /*
-                    string html = await GeneratePageHtml(NavConstants.HOME_PAGE);
-                    html.Replace("#modelJSON#", imageSrc);
-                    html.Replace("#image#", imageSrc);
-                    */
-                    string serverName = "<server>";
-                    imageSrc = imageSrc.Replace("C:", @"\\" + serverName + "\\c$");//Igual, esto no sirve, tira error: Not allowed to load local resource: file://<imageSrc>
-                    string html = "<html><head></head><body>Image:<br><img src='" + imageSrc + "'/></body></html>";
-                    await WebHelper.WriteToStream(html, os);
+                    string json = _webApiHelper.Execute(requestUri);
+                    await WebHelper.WriteToStream(json, os);
+                    return;
                 }
                 else// Request for a file that is in the Assets\Web folder (e.g. logo, css file)
                 {
@@ -192,20 +167,25 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
                             // Map the requested path to Assets\Web folder
-                            string filePath = NavConstants.ASSETSWEB + request.Replace('/', '\\');
+                            string filePath = NavConstants.ASSETSWEB + requestUri.Replace('/', '\\');
 
                             // Open the file and write it to the stream
                             using (Stream fs = await folder.OpenStreamForReadAsync(filePath))
                             {
                                 string contentType = "";
-                                if (request.Contains("css"))
+                                if (requestUri.Contains(".css"))
                                 {
                                     contentType = "Content-Type: text/css\r\n";
                                 }
-                                if (request.Contains("htm"))
+                                if (requestUri.Contains(".htm"))
                                 {
                                     contentType = "Content-Type: text/html\r\n";
                                 }
+                                if(requestUri.Contains(".js"))
+                                {
+                                    contentType = "Content-Type: application/javascript";
+                                }
+                                    
                                 string header = String.Format("HTTP/1.1 200 OK\r\n" +
                                                 "Content-Length: {0}\r\n{1}" +
                                                 "Connection: close\r\n\r\n",
@@ -251,7 +231,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                 try
                 {
                     // Try to send an error page back if there was a problem servicing the request
-                    string html = helper.GenerateErrorPage("There's been an error: " + ex.Message + "<br><br>" + ex.StackTrace);
+                    string html = _webhelper.GenerateErrorPage("There's been an error: " + ex.Message + "<br><br>" + ex.StackTrace);
                     await WebHelper.WriteToStream(html, os);
                 }
                 catch (Exception e)
@@ -268,15 +248,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         /// <returns>string with full HTML, ready to have items replaced. ex: #onState#</returns>
         private async Task<string> GeneratePageHtml(string requestedPage)
         {
-            string html = await helper.GeneratePage(requestedPage);
-            StringBuilder responseContent = new StringBuilder(@"{");
-            responseContent.Append("\"calls\":" + calls + ",");
-            calls = calls + 1;
-            responseContent.Append($"\"time\":\"{ DateTime.Now.ToString()}\",");
-            responseContent.Append("response:");
-            responseContent.Append(_commander.Process(new StringBuilder("cameras")));
-            responseContent.Append("}");
-            html = html.Replace("#modelJSON#", responseContent.ToString());
+            string html = await _webhelper.GeneratePage(requestedPage);
             return html;
         }
 

@@ -1,0 +1,25 @@
+﻿body {
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+ul {
+    list-style: none;
+}
+
+#img_thumbnail {
+    width:25px; 
+    height:25px;
+}
+
+#img_detail {
+    width:50%; 
+    height:50%;
+}
+
+.navbar-text {
+    font-size: 2.25rem;
+}
+
+
+

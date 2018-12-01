@@ -10,6 +10,9 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
+
+
+
 namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
 {
     internal class WebHelper
@@ -67,7 +70,6 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         private async Task LoadHTMLTemplate(string page)
         {
             string htmlBody = "";
-            string htmlHead = "";
 
             var filePath = string.Format("{0}\\{1}", NavConstants.ASSETSWEB, page);
             var file = (IStorageFile)await this.InstallFolder.TryGetItemAsync(filePath);
@@ -78,23 +80,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
             }
             else
             {
-                string pageName = Path.GetFileNameWithoutExtension(page);
-
-                filePath = string.Format("{0}\\{1}.{2}", NavConstants.ASSETSWEB, pageName, "body");
-                file = (IStorageFile)await this.InstallFolder.TryGetItemAsync(filePath);
-                if (file != null)
-                {
-
-                    htmlBody = await FileIO.ReadTextAsync(file);
-                }
-                filePath = string.Format("{0}\\{1}.{2}", NavConstants.ASSETSWEB, pageName, "head");
-                file = (IStorageFile)await this.InstallFolder.TryGetItemAsync(filePath);
-                if (file != null)
-                {
-                    htmlHead = await FileIO.ReadTextAsync(file);
-                }
-
-                this.htmlTemplates.Add(page, GeneratePage(NavConstants.TITLE, pageName, htmlBody, htmlHead));
+                GenerateErrorPage($"It's missing template for page: {page}");
             }
         }
 
@@ -107,7 +93,9 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         /// <returns></returns>
         internal string GenerateErrorPage(string errorMessage)
         {
-            return GeneratePage("Error", "Error", errorMessage, "");
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("#error#", errorMessage);
+            return GeneratePage(NavConstants.ERROR_PAGE,data);
         }
 
         /// <summary>
@@ -118,24 +106,22 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         /// <param name="content">Content for the body of the page</param>
         /// <param name="message">A status message that will appear above the content</param>
         /// <returns></returns>
-        string GeneratePage(string title, string titleBar, string content, string head = "", string message = "")
+        string GeneratePage(string pageKey,Dictionary<string,string> data)
         {
             string html;
-            if (this.htmlTemplates.ContainsKey(NavConstants.DEFAULT_PAGE))
+            if (this.htmlTemplates.ContainsKey(pageKey))
             {
-                html = this.htmlTemplates[NavConstants.DEFAULT_PAGE];
+                html = this.htmlTemplates[pageKey];
             }
             else
             {
-                html = $"<html><head></head><body>Can't find the assets, current path is: {AppContext.BaseDirectory}</body></html>";
-            }
-            html = html.Replace("#content#", content);
-            html = html.Replace("#title#", title);
-            html = html.Replace("#titleBar#", titleBar);
-            html = html.Replace("#navBar#", createNavBar());
-            html = html.Replace("#message#", message);
-            html = html.Replace("#head#", head);
+                html = $"<html><head></head><body>Can't find the assets, current path is: {AppContext.BaseDirectory}";
 
+            }
+            foreach(string key in data.Keys)
+            {
+                html = html.Replace(key, data[key]);
+            }
             return html;
         }
 
