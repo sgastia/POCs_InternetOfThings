@@ -22,7 +22,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         private readonly StreamSocketListener _listener;
         private WebApiHelper _webApiHelper;
         private WebHelper _webhelper;
-        private Commander _commander;
+        private Devices _devices;
         private StartupTask _startupTask;
 
         private static readonly Webcam webcam = new Webcam();
@@ -33,10 +33,11 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
         /// Constructor
         /// </summary>
         /// <param name="serverPort">Port to start server on</param>
-        internal WebServer(int serverPort)
+        internal WebServer(StartupTask st,int serverPort)
         {
+            _startupTask = st;
             _webhelper = new WebHelper();
-            _commander = new Commander();
+            _devices = new Devices();
             _listener = new StreamSocketListener();
             _webApiHelper = new WebApiHelper();
             _port = serverPort;
@@ -44,8 +45,15 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
             {
                 try
                 {
-                    // Process incoming request
-                    processRequestAsync(e.Socket);
+                    if (_startupTask.IsClosing)
+                    {
+                        _listener.CancelIOAsync().GetResults();
+                    }
+                    else
+                    {
+                        // Process incoming request
+                        processRequestAsync(e.Socket);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -153,7 +161,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.HttpInterface
                 }
                 else if (uriParts[1].ToLower() == "api")
                 {
-                    string json = _webApiHelper.Execute(requestUri);
+                    string json = await _webApiHelper.Execute(requestUri);
                     await WebHelper.WriteToStream(json, os);
                     return;
                 }

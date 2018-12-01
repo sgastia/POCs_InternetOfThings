@@ -2,54 +2,26 @@
 
     var URL_TAKE_SNAPSHOT = "api/devices/camera/snapshot";
     var URL_INITIALIZE_CAMERA = "api/devices/camera/initialize";
-    ////////////////////////////////
-    //Private
-    var getPromise = function (pUrl) {
-        var promise = $http({
-            method: "GET",
-            url: pUrl,
-            cache: false
-        });
-        promise.success(
-            function (data, status) {
-                return data;
-            }
-        );
-
-        promise.error(
-            function (data, status) {
-                console.log(data, status);
-                return { "status": false };
-            }
-        );
-        return promise;
-    };
-
-
+    var URL_START_VIDEO_RECORDING = "api/devices/camera/startvideorecording";
+    var URL_STOP_VIDEO_RECORDING = "api/devices/camera/stopvideorecording";
+    var URL_LIVE_VIDEO = "api/devices/camera/livevideo";
+    
     ////////////////////////////////
     //Public
     this.takeSnapshot = function (successCallback, errorCallback) {
-        getPromise(URL_TAKE_SNAPSHOT).then
-            (
-            function success(response) {
-                successCallback(response.data);
-            },
-            function error(response) {
-                errorCallback(response);
-            }
-            );
+        $http({
+            method: "GET",
+            url: URL_TAKE_SNAPSHOT,
+            cache: false
+        }).then(successCallback, errorCallback);
     };
 
     this.initializeCamera = function (successCallback, errorCallback) {
-        getPromise(URL_INITIALIZE_CAMERA).then
-            (
-            function success(response) {
-                successCallback(response.data);
-            },
-            function error(response) {
-                errorCallback(response);
-            }
-            );
+        $http({
+            method: "GET",
+            url: URL_INITIALIZE_CAMERA,
+            cache: false
+        }).then(successCallback,errorCallback);
     };
-    
+
 }

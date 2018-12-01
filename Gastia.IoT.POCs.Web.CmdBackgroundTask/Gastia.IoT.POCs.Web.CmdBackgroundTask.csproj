@@ -96,14 +96,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Interfaces\DeviceInterfaces\Webcam.cs" />
+    <Compile Include="Interfaces\Entities\JsonMessage.cs" />
     <Compile Include="Interfaces\HttpInterface\NavConstants.cs" />
     <Compile Include="Interfaces\HttpInterface\WebApiHelper.cs" />
     <Compile Include="Interfaces\HttpInterface\WebHelper.cs" />
     <Compile Include="Interfaces\HttpInterface\WebServer.cs" />
     <Compile Include="Managers\TelemetryManager.cs" />
-    <Compile Include="Interfaces\DeviceInterfaces\CameraService.cs" />
-    <Compile Include="Interfaces\Commander.cs" />
-    <Compile Include="Services\Webserver.cs" />
+    <Compile Include="Interfaces\DeviceInterfaces\Devices.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -147,7 +146,9 @@
     <Content Include="Assets\Web\error.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Web\img\gnomo.png" />
+    <Content Include="Assets\Web\img\gnomo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Web\index.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

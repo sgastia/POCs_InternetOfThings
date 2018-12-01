@@ -31,10 +31,8 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask
             taskInstance.Canceled += TaskInstance_Canceled;
             _deferral = taskInstance.GetDeferral();
 
-            Webserver ws = new Webserver(PORT.ToString(),this);
-            WebServer ws2 = new WebServer(PORT);
+            WebServer ws2 = new WebServer(this,PORT);
             _tasks = new Task[1];
-            //_tasks[0] = Task.Run(async () => { await ws.Start(); });
             _tasks[0] = Task.Run(() => ws2.StartServer());
         }
 

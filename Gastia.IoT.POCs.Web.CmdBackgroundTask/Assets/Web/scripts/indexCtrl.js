@@ -9,10 +9,17 @@ function indexCtrl($scope, serv) {
     ///////////////////////////////////////////
     $scope.initalize_camera = function () {
         $scope.model.message = "Initialize camera";
+        serv.initializeCamera(
+            function (data) { $scope.model.message = "Camera initialized: " + data; },
+            function (error) { $scope.model.message = "Error initializing camera: " + error; }
+        );
     }
 
     $scope.take_snapshot = function () {
-        $scope.model.message = "Take snapshot";
+        serv.takeSnapshot(
+            function (data) { $scope.model.message = "Snapshot: " + data; },
+            function (error) { $scope.model.message = "Error snapshot: " + error; }
+        );
     }
 
     $scope.initVideoRecording = function () {

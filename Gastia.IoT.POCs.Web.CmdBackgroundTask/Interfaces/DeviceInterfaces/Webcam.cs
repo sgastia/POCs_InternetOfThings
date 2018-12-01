@@ -63,7 +63,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
                 await mediaCapture.InitializeAsync();
 
                 // Set callbacks for failure and recording limit exceeded
-                string message = "{\"message\":\"Device successfully initialized for video recording!\"}";
+                string message = "Device successfully initialized for video recording!";
                 mediaCapture.Failed += new MediaCaptureFailedEventHandler(mediaCapture_Failed);
                 mediaCapture.RecordLimitationExceeded += new Windows.Media.Capture.RecordLimitationExceededEventHandler(mediaCapture_RecordLimitExceeded);
                 Debug.WriteLine(message);
@@ -82,7 +82,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
             }
             catch (Exception ex)
             {
-                string message = "{\"error\":\"Unable to initialize camera for audio/video mode: " + ex.Message + "\"}";
+                string message = "Unable to initialize camera for audio/video mode: " + ex.Message;
                 Debug.WriteLine(message);
                 return message;
             }
@@ -108,7 +108,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
             }
             catch (Exception ex)
             {
-                string message = "{\"error\":\"Error in Webcam.TakePhoto(): " + ex.Message + "\"}";
+                string message = "Error in Webcam.TakePhoto(): " + ex.Message;
                 Debug.WriteLine(message);
                 Cleanup();
                 return message;
@@ -126,7 +126,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         /// - ENABLE 'Initialize Audio and Video'
         /// - ENABLE 'Start Audio Record'        
         /// </summary>
-        public async void InitAudioOnly()
+        public async Task<string> InitAudioOnly()
         {
             try
             {
@@ -161,9 +161,12 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
                 mediaCapture.RecordLimitationExceeded += new Windows.Media.Capture.RecordLimitationExceededEventHandler(mediaCapture_RecordLimitExceeded);
 
                 //TODO: Enable buttons for audio
-                
+
 
                 //TODO: Enable Audio and video Only Init button
+
+
+                return "Audio initialized";
                 
             }
             catch (Exception ex)
