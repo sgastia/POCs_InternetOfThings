@@ -33,22 +33,22 @@
                     <div class="input-group p-2">
                         <button type="button" class="btn btn-primary" ng-click="initalize_camera()" value="Clear">Initialize camera</button>
                         &nbsp;
-                        <button type="button" class="btn btn-primary" ng-click="take_snapshot()" value="Clear">Take snapshot</button>
+                        <button type="button" id="btnTakeSnapshot" class="btn btn-primary" ng-click="take_snapshot()" ng-disabled="model.btnTakeSnapshot_disabled" value="Clear">Take snapshot</button>
                         &nbsp;
-                        <button type="button" class="btn btn-primary" ng-click="initVideoRecording()" value="Clear">Start recording</button>
+                        <button type="button" id="btnStartRecording" class="btn btn-primary" ng-click="initVideoRecording()" ng-disabled="model.btnStartRecording_disabled" value="Clear">Start recording</button>
                         &nbsp;
-                        <button type="button" class="btn btn-primary" ng-click="stopVideoRecording()" value="Clear">Stop recording</button>
+                        <button type="button" id="btnStopRecording" class="btn btn-primary" ng-click="stopVideoRecording()" ng-disabled="model.btnStopRecording_disabled" value="Clear">Stop recording</button>
                         &nbsp;
-                        <button type="button" class="btn btn-primary" ng-click="liveVideo()" value="Clear">Live Video</button>
+                        <button type="button" id="btnLiveVideo"class="btn btn-primary" ng-click="liveVideo()" ng-disabled="model.btnLiveVideo_disabled" value="Clear">Live Video</button>
                     </div>
                     <div>{{ model.message }}</div>
                 </div>
             </section>
         </main>
         <main class="container">
-            <img id="imgPhoto" ng-src="{{model.photoPath}}"/>
+            <img id="imgPhoto" ng-src="{{model.photoPath}}" ng-show="model.photo_show" />
             <br />
-            <video id="video" />
+            <video id="video" ng-src="{{model.videoPath}}" ng-show="model.video_show" controls>Your browser does not support the video tag.</video>
         </main>
     </form>
 </body>

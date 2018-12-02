@@ -17,11 +17,11 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         private StorageFile photoFile;
         private StorageFile recordStorageFile;
         private StorageFile audioFile;
-        private readonly string PHOTO_FILE_NAME = "photo.jpg";
-        private readonly string VIDEO_FILE_NAME = "video.mp4";
-        private readonly string AUDIO_FILE_NAME = "audio.mp3";
+        public const string PHOTO_FILE_NAME = "photo.jpg";
+        public const string VIDEO_FILE_NAME = "video.mp4";
+        public const string AUDIO_FILE_NAME = "audio.mp3";
         private bool isPreviewing;
-        private bool isRecording;
+        private bool isRecording = false;
 
         /// <summary>
         /// 'Initialize Audio and Video' button action function
@@ -33,7 +33,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         /// - ENABLE 'Start Video Record'
         /// - ENABLE 'Take Photo'
         /// </summary>
-        public async Task<string> InitVideo()
+        public async Task<string> InitializeCamera()
         {
             //TODO: Disable all buttons until initialization completes
 
@@ -128,7 +128,7 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         /// - ENABLE 'Initialize Audio and Video'
         /// - ENABLE 'Start Audio Record'        
         /// </summary>
-        public async Task<string> InitAudioOnly()
+        public async Task<string> InitializeAudioOnly()
         {
             try
             {
@@ -185,68 +185,58 @@ namespace Gastia.IoT.POCs.Web.CmdBackgroundTask.Interfaces.DeviceInterfaces
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public async void RecordVideo()
+        public async Task<string> RecordVideo(StorageFile file)
         {
-            /*
+            
             try
             {
-                takePhoto.IsEnabled = false;
-                recordVideo.IsEnabled = false;
-                playbackElement.Source = null;
 
-                if (recordVideo.Content.ToString() == "Start Video Record")
+                if (!isRecording)
                 {
-                    takePhoto.IsEnabled = false;
-                    status.Text = "Initialize video recording";
-                    String fileName;
-                    fileName = VIDEO_FILE_NAME;
-
-                    recordStorageFile = await Windows.Storage.KnownFolders.VideosLibrary.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.GenerateUniqueName);
-
-                    status.Text = "Video storage file preparation successful";
-
+                    Debug.WriteLine("Initialize video recording");
                     MediaEncodingProfile recordProfile = null;
                     recordProfile = MediaEncodingProfile.CreateMp4(Windows.Media.MediaProperties.VideoEncodingQuality.Auto);
-
+                    this.recordStorageFile = file;
                     await mediaCapture.StartRecordToStorageFileAsync(recordProfile, recordStorageFile);
-                    recordVideo.IsEnabled = true;
-                    recordVideo.Content = "Stop Video Record";
                     isRecording = true;
-                    status.Text = "Video recording in progress... press \'Stop Video Record\' to stop";
+                    string message = "Video recording in progress..";
+                    Debug.WriteLine(message);
+                    return message;
+
                 }
                 else
                 {
-                    takePhoto.IsEnabled = true;
-                    status.Text = "Stopping video recording...";
+                    Debug.WriteLine("Stopping video recording...");
                     await mediaCapture.StopRecordAsync();
-                    isRecording = false;
-
                     var stream = await recordStorageFile.OpenReadAsync();
+
+                    /*
                     playbackElement.AutoPlay = true;
                     playbackElement.SetSource(stream, recordStorageFile.FileType);
                     playbackElement.Play();
-                    status.Text = "Playing recorded video" + recordStorageFile.Path;
-                    recordVideo.Content = "Start Video Record";
+                    */
+
+                    Debug.WriteLine("Playing recorded video" + recordStorageFile.Path);
+                    isRecording = false;
+                    return recordStorageFile.Name;
                 }
             }
             catch (Exception ex)
             {
                 if (ex is System.UnauthorizedAccessException)
                 {
-                    status.Text = "Unable to play recorded video; video recorded successfully to: " + recordStorageFile.Path;
-                    recordVideo.Content = "Start Video Record";
+                    string message = "Unable to play recorded video; video recorded successfully to: " + recordStorageFile.Path;
+                    Debug.WriteLine(message);
+                    return message;
                 }
                 else
                 {
-                    status.Text = ex.Message;
+                    Debug.WriteLine(ex.Message);
                     Cleanup();
+                    return ex.Message;
                 }
             }
-            finally
-            {
-                recordVideo.IsEnabled = true;
-            }
-            */
+
         }
 
         /// <summary>

@@ -24,4 +24,28 @@
         }).then(successCallback,errorCallback);
     };
 
+    this.startVideoRecording = function (successCallback, errorCallback) {
+        $http({
+            method: "GET",
+            url: URL_START_VIDEO_RECORDING,
+            cache: false
+        }).then(successCallback, errorCallback);
+    };
+
+    this.stopVideoRecording = function (successCallback, errorCallback) {
+        $http({
+            method: "GET",
+            url: URL_STOP_VIDEO_RECORDING,
+            cache: false
+        }).then(successCallback, errorCallback);
+    };
+
+    this.liveVideo = function (successCallback, errorCallback) {
+        $http({
+            method: "GET",
+            url: URL_LIVE_VIDEO,
+            cache: false
+        }).then(successCallback, errorCallback);
+    };
+
 }
