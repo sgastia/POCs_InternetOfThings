@@ -71,18 +71,18 @@ namespace Gastia.IoT.POCs.Web.CmdForegroundTask
             if (action == Action.ENABLE)
             {
                 takePhoto.IsEnabled = true;
-                takePhoto.Visibility = Visibility.Visible;
+                //takePhoto.Visibility = Visibility.Visible;
 
                 recordVideo.IsEnabled = true;
-                recordVideo.Visibility = Visibility.Visible;
+                //recordVideo.Visibility = Visibility.Visible;
             }
             else
             {
                 takePhoto.IsEnabled = false;
-                takePhoto.Visibility = Visibility.Collapsed;
+                //takePhoto.Visibility = Visibility.Collapsed;
 
                 recordVideo.IsEnabled = false;
-                recordVideo.Visibility = Visibility.Collapsed;
+                //recordVideo.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -95,12 +95,12 @@ namespace Gastia.IoT.POCs.Web.CmdForegroundTask
             if (action == Action.ENABLE)
             {
                 recordAudio.IsEnabled = true;
-                recordAudio.Visibility = Visibility.Visible;
+                //recordAudio.Visibility = Visibility.Visible;
             }
             else
             {
                 recordAudio.IsEnabled = false;
-                recordAudio.Visibility = Visibility.Collapsed;
+                //recordAudio.Visibility = Visibility.Collapsed;
             }
         }
         #endregion
